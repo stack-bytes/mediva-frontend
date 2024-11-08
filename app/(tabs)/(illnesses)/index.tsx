@@ -116,7 +116,7 @@ export default function IllnessesScreen() {
                 </View>
 
                 <Button className="absolute bottom-4 right-4 aspect-square h-10">
-                  <Eye color={Colors.dark.text_secondary} />
+                  <Eye color={Colors.dark.text_white} />
                 </Button>
               </Card>
             )}
@@ -126,12 +126,6 @@ export default function IllnessesScreen() {
             }}
           />
         </View>
-
-        <BlurView
-          className="absolute bottom-0 h-40 w-full opacity-40"
-          tint="proeminent"
-          intensity={20}
-        />
       </SafeAreaView>
     </ImageBackground>
   );

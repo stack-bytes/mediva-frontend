@@ -6,6 +6,7 @@ import { Text } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 
 import {
+  BadgeCheck,
   Bell,
   Calendar,
   CalendarCheck,
@@ -48,16 +49,16 @@ export default function ProfileScreen() {
           decelerationRate={0.25}
         >
           <View className="flex w-full flex-row items-center justify-between px-8 pt-10">
-            <Button className="aspect-square rounded-full bg-[#101010]">
+            <Button className="aspect-square rounded-full border border-border bg-card">
               <Bell color={Colors.dark.text_secondary} size={24} />
             </Button>
 
             <View className="flex-row gap-x-4">
-              <Button className="aspect-square rounded-full bg-[#101010]">
+              <Button className="aspect-square rounded-full border border-border bg-card">
                 <CalendarClock size={24} color={Colors.dark.text_secondary} />
               </Button>
 
-              <Button className="aspect-square rounded-full bg-[#101010]">
+              <Button className="aspect-square rounded-full border border-border bg-card">
                 <Cog size={24} color={Colors.dark.text_secondary} />
               </Button>
             </View>
@@ -76,16 +77,24 @@ export default function ProfileScreen() {
             </Avatar>
 
             <Text className="text-3xl font-bold text-text-primary">
-              Popescu Marian
+              {userId}
             </Text>
 
             <Text className="text-xl font-semibold text-text-primary">
               @popescumarian
             </Text>
 
-            <Text className="text-xl font-semibold text-primary">
-              Orthopedist
-            </Text>
+            <View className="flex flex-row gap-x-1">
+              <BadgeCheck
+                size={24}
+                color={Colors.dark.text_white}
+                fill={Colors.dark.primary}
+              />
+              <Text className="text-xl font-semibold text-primary">
+                Orthopedist
+              </Text>
+            </View>
+
             <View className="flex flex-row gap-x-2">
               <Hospital size={24} color={Colors.dark.error_primary} />
               <Text className="text-lg font-semibold text-destructive">
@@ -99,6 +108,18 @@ export default function ProfileScreen() {
               <Wallet size={24} color={Colors.dark.text_white} />
               <Text>Health Wallet</Text>
             </Button>
+
+            <Text className="text-lg font-medium">Appointments</Text>
+
+            <View className="flex w-full flex-row justify-center gap-x-2">
+              <Button className="flex-1" variant="destructive">
+                <CalendarCheck color={Colors.dark.text_white} />
+                <Text className="text-text-white">Book an appointment</Text>
+              </Button>
+              <Button variant="destructive" className="aspect-square">
+                <Phone color={Colors.dark.text_white} />
+              </Button>
+            </View>
 
             {/* MEDIC INFORMATION */}
             <Text className="text-lg font-medium">Information</Text>
@@ -149,18 +170,6 @@ export default function ProfileScreen() {
                 robbin.edward@doctor.edu Phone: +40794232412
               </Text>
             </Card>
-
-            <Text className="text-lg font-medium">Appointments</Text>
-
-            <View className="flex w-full flex-row justify-center gap-x-2">
-              <Button className="flex-1" variant="destructive">
-                <CalendarCheck color={Colors.dark.text_primary} />
-                <Text className="text-text-primary">Book an appointment</Text>
-              </Button>
-              <Button variant="destructive" className="aspect-square">
-                <Phone color={Colors.dark.text} />
-              </Button>
-            </View>
 
             <View className="flex w-full flex-row items-center justify-between">
               <Text className="text-lg font-medium">Appointments</Text>

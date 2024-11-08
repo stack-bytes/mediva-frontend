@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { DoctorCard } from "@/components/cards/doctor-card";
 import React from "react";
 import { Input } from "@/components/ui/input";
-import { BlurView } from "expo-blur";
+import { GenericUsers } from "@/generics/user";
 
 export default function HomeScreen() {
   return (
@@ -41,58 +41,14 @@ export default function HomeScreen() {
 
         <View className="h-full w-full flex-1 px-8">
           <FlatList
-            data={[
-              {
-                avatar: "https://thispersondoesnotexist.com/",
-                name: "Popescu Marian",
-                specialty: "Orthopedist",
-                grade: "primary",
-                hospital: "Spitalul Clinic de Urgenta",
-                rating: 4.5,
-                yearsActive: 10,
-              },
-              {
-                avatar: "https://thispersondoesnotexist.com/",
-                name: "Popescu Marian",
-                specialty: "Orthopedist",
-                grade: "primary",
-                hospital: "Spitalul Clinic de Urgenta",
-                rating: 4.5,
-                yearsActive: 10,
-              },
-              {
-                avatar: "https://thispersondoesnotexist.com/",
-                name: "Popescu Marian",
-                specialty: "Orthopedist",
-                grade: "primary",
-                hospital: "Spitalul Clinic de Urgenta",
-                rating: 4.5,
-                yearsActive: 10,
-              },
-            ]}
-            renderItem={({ item }) => (
-              <DoctorCard
-                avatar={item.avatar}
-                name={item.name}
-                specialty={item.specialty}
-                grade={item.grade as "primary" | "specialist"}
-                hospital={item.hospital}
-                rating={item.rating}
-                yearsActive={item.yearsActive}
-              />
-            )}
+            data={GenericUsers.filter((user) => user.medic !== null)}
+            renderItem={({ item }) => <DoctorCard doctor={item} />}
             className="w-full"
             contentContainerStyle={{
               rowGap: 15,
             }}
           />
         </View>
-
-        <BlurView
-          className="absolute bottom-0 h-40 w-full opacity-40"
-          tint="proeminent"
-          intensity={20}
-        />
       </SafeAreaView>
     </ImageBackground>
   );

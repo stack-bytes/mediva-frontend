@@ -1,13 +1,16 @@
-import { ImageBackground } from "expo-image";
+import { Image, ImageBackground } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { Calendar, Clock, Info, MapPin } from "lucide-react-native";
 
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 
 import { Card } from "@/components/ui/card";
 import { Text } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Colors } from "@/constants/Colors";
+import { Link, useRouter } from "expo-router";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 interface IAppointmentCardProps {
   name: string;
@@ -21,31 +24,20 @@ interface IAppointmentCardProps {
 }
 
 export const AppointmentCard: React.FC<IAppointmentCardProps> = (props) => {
+  const router = useRouter();
+
   return (
     <Card className="h-fit w-full flex-col gap-y-4">
       <View className="flex h-fit w-full flex-row items-center justify-start gap-x-2">
-        <ImageBackground
-          source={props.avatar}
-          style={{
-            height: 65,
-            width: 65,
-          }}
-          imageStyle={{
-            borderRadius: 12,
-          }}
-        >
-          <LinearGradient
-            colors={["rgba(30, 30, 30, 0.4)", "rgba(10, 10, 10, 0.95)"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 1.2 }}
-            style={{
-              height: "100%",
-              width: "100%",
-              position: "absolute",
-              borderRadius: 12,
-            }}
-          />
-        </ImageBackground>
+        <Pressable onPress={() => router.push(`/profile/${props.name}`)}>
+          <Avatar alt="Avatar" className="h-16 w-16 border-2 border-primary">
+            <AvatarImage source={{ uri: props.avatar }} />
+            <AvatarFallback>
+              <Text>ZN</Text>
+            </AvatarFallback>
+          </Avatar>
+        </Pressable>
+
         <View className="flex flex-col items-center justify-start">
           <Text className="w-full text-left font-medium text-text-foreground">
             {props.specialty}, {props.grade}
@@ -58,7 +50,7 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = (props) => {
 
       <View className="flex h-fit w-full flex-row items-center justify-center gap-x-4">
         <View className="flex w-fit flex-col items-center justify-center text-primary">
-          <MapPin size={24} color="#8E6EEA" />
+          <MapPin size={24} color={Colors.dark.primary} />
           <Text className="text-base font-medium text-primary">
             {props.location.slice(0, 10)}...
           </Text>
@@ -70,7 +62,7 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = (props) => {
         />
 
         <View className="flex w-fit flex-col items-center justify-center text-accent">
-          <Clock size={24} color="#3DBEFF" />
+          <Clock size={24} color={Colors.dark.accent} />
           <Text className="text-base font-medium text-accent">
             {props.time}
           </Text>
@@ -82,15 +74,18 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = (props) => {
         />
 
         <View className="flex w-fit flex-col items-center justify-center text-secondary">
-          <Calendar size={24} color="#B36EEA" />
+          <Calendar size={24} color={Colors.dark.secondary} />
           <Text className="text-base font-medium text-secondary">
             {props.date}
           </Text>
         </View>
       </View>
 
-      <Button className="w-full text-text-foreground" variant="shadow">
-        <Info size={20} color="#9F9F9F" />
+      <Button
+        className="flex w-full items-center justify-center text-text-foreground"
+        variant="shadow"
+      >
+        <Info size={24} color="#9F9F9F" />
         <Text>See details</Text>
       </Button>
     </Card>

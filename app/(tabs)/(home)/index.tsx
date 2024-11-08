@@ -47,16 +47,19 @@ export default function HomeScreen() {
           decelerationRate={0.25}
         >
           <View className="flex w-full flex-row items-center justify-between px-8 pt-10">
-            <Button className="aspect-square rounded-full bg-[#101010]">
+            <Button className="aspect-square rounded-full border border-border bg-card">
               <Bell color={Colors.dark.text_secondary} size={24} />
             </Button>
 
             <View className="flex-row gap-x-4">
-              <Button className="aspect-square rounded-full bg-[#101010]">
+              <Button
+                className="aspect-square rounded-full border border-border bg-card"
+                onPress={() => router.push("/(home)/appointments")}
+              >
                 <CalendarClock size={24} color={Colors.dark.text_secondary} />
               </Button>
 
-              <Button className="aspect-square rounded-full bg-[#101010]">
+              <Button className="aspect-square rounded-full border border-border bg-card">
                 <Cog size={24} color={Colors.dark.text_secondary} />
               </Button>
             </View>
@@ -191,16 +194,6 @@ export default function HomeScreen() {
               name="Popescu"
               specialty="GP"
               time="10:00 AM"
-            />
-
-            <DoctorCard
-              avatar="https://thispersondoesnotexist.com/"
-              name="Popescu Marian"
-              specialty="Orthopedist"
-              grade="primary"
-              hospital="Spitalul Clinic de Urgenta"
-              rating={4.5}
-              yearsActive={10}
             />
           </View>
         </ScrollView>

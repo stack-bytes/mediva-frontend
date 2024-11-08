@@ -25,7 +25,7 @@ export const Colors = {
     text_secondary: "#646464",
     text_white: "#fff",
     card: "#fff",
-    border: "#f1f5f9",
+    border: "#e2e8f0",
     success_primary: "#1EA427",
     success_secondary: "#1F8126",
     error_primary: "#B02E2E",
