@@ -51,7 +51,7 @@ module.exports = {
           foreground: "hsl(var(--popover-foreground))",
         },
         card: {
-          DEFAULT: "rgba(40,40,40,0.6)",
+          DEFAULT: "rgba(40,40,40,0.5)",
           foreground: "hsl(var(--card-foreground))",
         },
       },

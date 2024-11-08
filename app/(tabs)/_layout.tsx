@@ -3,7 +3,6 @@ import React from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { View } from "react-native";
 import { Image } from "expo-image";
 import { AppLogo } from "@/components/images";
@@ -97,9 +96,7 @@ export default function TabLayout() {
                   height: focused ? 36 : 34,
                   borderRadius: 20,
                   borderWidth: 3,
-                  borderColor: focused
-                    ? Colors.dark.primary
-                    : Colors.dark.secondary,
+                  borderColor: focused ? Colors.dark.primary : "transparent",
                 }}
                 source="https://thispersondoesnotexist.com/"
               />
