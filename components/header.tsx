@@ -22,7 +22,7 @@ export const Header: React.FC<IHeaderProps> = ({
   ...props
 }) => {
   return (
-    <View className="px-8 pt-10">
+    <View className="w-full px-8 pt-10">
       <View
         className={cn(
           "flex flex-row items-center justify-start gap-x-2",
