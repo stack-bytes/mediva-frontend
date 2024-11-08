@@ -18,7 +18,11 @@ const LIGHT_THEME: Theme = {
 };
 const DARK_THEME: Theme = {
   dark: true,
-  colors: NAV_THEME.dark,
+  colors: {
+    ...NAV_THEME.dark,
+    border: "transparent",
+    background: "transparent",
+  },
 };
 
 export {

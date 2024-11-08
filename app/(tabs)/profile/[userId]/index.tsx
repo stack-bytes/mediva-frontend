@@ -75,15 +75,15 @@ export default function ProfileScreen() {
               </AvatarFallback>
             </Avatar>
 
-            <Text className="text-3xl font-bold text-white">
+            <Text className="text-3xl font-bold text-text-primary">
               Popescu Marian
             </Text>
 
-            <Text className="text-xl font-semibold text-white">
+            <Text className="text-xl font-semibold text-text-primary">
               @popescumarian
             </Text>
 
-            <Text className="text-xl font-semibold text-accent">
+            <Text className="text-xl font-semibold text-primary">
               Orthopedist
             </Text>
             <View className="flex flex-row gap-x-2">
@@ -96,7 +96,7 @@ export default function ProfileScreen() {
 
           <View className="w-full gap-y-4 px-8">
             <Button>
-              <Wallet size={24} color={Colors.dark.text_primary} />
+              <Wallet size={24} color={Colors.dark.text_white} />
               <Text>Health Wallet</Text>
             </Button>
 

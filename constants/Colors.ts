@@ -16,14 +16,16 @@ export const Colors = {
     tabIconSelected: tintColorLight,
   },
   dark: {
-    primary: "#8E6EEA",
-    secondary: "#B36EEA",
-    accent: "#3DBEFF",
+    background: "#fff",
+    primary: "#CB1E1E",
+    secondary: "#EA7171",
+    accent: "#F1A7A7",
     text: "#F4F4F4",
-    text_primary: "#F4F4F4",
-    text_secondary: "#9F9F9F",
-    card: "rgba(40,40,40,0.42)",
-    border: "rba(40,40,40,0.82)",
+    text_primary: "#282828",
+    text_secondary: "#646464",
+    text_white: "#fff",
+    card: "#fff",
+    border: "#f1f5f9",
     success_primary: "#1EA427",
     success_secondary: "#1F8126",
     error_primary: "#B02E2E",
@@ -36,16 +38,16 @@ export const Colors = {
 
 export const NAV_THEME = {
   light: {
-    background: "hsl(0 0% 100%)", // background
-    border: "hsl(240 5.9% 90%)", // border
+    background: "transparent", // background
+    border: "transparent", // border
     card: "hsl(0 0% 100%)", // card
     notification: "hsl(0 84.2% 60.2%)", // destructive
     primary: "hsl(240 5.9% 10%)", // primary
     text: "hsl(240 10% 3.9%)", // foreground
   },
   dark: {
-    background: "hsl(240 10% 3.9%)", // background
-    border: "hsl(240 3.7% 15.9%)", // border
+    background: "transparent", // background
+    border: "transparent", // border
     card: "hsl(240 10% 3.9%)", // card
     notification: "hsl(0 72% 51%)", // destructive
     primary: "hsl(0 0% 98%)", // primary
