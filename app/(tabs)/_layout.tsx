@@ -1,13 +1,14 @@
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import React from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { AppLogo } from "@/components/images";
 
 export default function TabLayout() {
+  const router = useRouter();
   return (
     <Tabs
       initialRouteName="(home)"
@@ -85,9 +86,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="(profile)"
+        name="profile"
         options={{
           title: "profile",
+          tabBarButton: (props) => (
+            <TouchableOpacity
+              {...props}
+              onPress={() => router.push("/profile/test")}
+            />
+          ),
           tabBarIcon: ({ color, focused }) => (
             <View className="pr-3 pt-2">
               <Image
