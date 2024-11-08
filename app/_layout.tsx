@@ -1,4 +1,4 @@
-import "@/global.css";
+import "../global.css";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Theme, ThemeProvider } from "@react-navigation/native";
@@ -9,6 +9,8 @@ import { Platform } from "react-native";
 import { NAV_THEME } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { useFonts } from "expo-font";
+
+import { verifyInstallation } from "nativewind";
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -63,6 +65,8 @@ export default function RootLayout() {
   if (!isColorSchemeLoaded || (!loaded && !error)) {
     return null;
   }
+
+  //verifyInstallation();
 
   return (
     <ThemeProvider value={DARK_THEME}>

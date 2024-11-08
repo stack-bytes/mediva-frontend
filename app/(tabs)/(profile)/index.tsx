@@ -4,10 +4,10 @@ import { SafeAreaView, View } from "react-native";
 
 import { Text } from "@/components/ui/text";
 
-export default function DoctorsScreen() {
+export default function ProfileScreen() {
   return (
     <View className="h-full w-full bg-red-500">
-      <Text>doctors</Text>
+      <Text>Profile screen</Text>
     </View>
   );
 }

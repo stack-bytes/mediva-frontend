@@ -51,6 +51,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="(illnesses)"
+        options={{
+          title: "Illnesses",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name="virus" color={color} size={focused ? 30 : 28} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="(home)"
         options={{
           title: "Home",
@@ -62,6 +71,37 @@ export default function TabLayout() {
                   height: focused ? 50 : 40,
                 }}
                 source={AppLogo}
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="(map)"
+        options={{
+          title: "Map",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name="map" color={color} size={focused ? 30 : 28} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="(profile)"
+        options={{
+          title: "profile",
+          tabBarIcon: ({ color, focused }) => (
+            <View className="pr-3 pt-2">
+              <Image
+                style={{
+                  width: focused ? 36 : 34,
+                  height: focused ? 36 : 34,
+                  borderRadius: 20,
+                  borderWidth: 3,
+                  borderColor: focused
+                    ? Colors.dark.primary
+                    : Colors.dark.secondary,
+                }}
+                source="https://thispersondoesnotexist.com/"
               />
             </View>
           ),
