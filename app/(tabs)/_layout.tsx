@@ -38,9 +38,22 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
+        name="(doctors)"
+        options={{
+          title: "Doctors",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name="user-doctor"
+              color={color}
+              size={focused ? 30 : 28}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="(home)"
         options={{
-          title: "test",
+          title: "Home",
           tabBarIcon: ({ color, focused }) => (
             <View className="pr-3 pt-4">
               <Image

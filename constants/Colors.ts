@@ -19,6 +19,7 @@ export const Colors = {
     primary: "#8E6EEA",
     secondary: "#B36EEA",
     accent: "#3DBEFF",
+    text: "#fff",
     text_primary: "#",
     text_secondary: "#",
     card: "rgba(40,40,40,0.49)",
@@ -29,6 +30,7 @@ export const Colors = {
     error_secondary: "#8A2F2F",
     warning_primary: "#F2BC08",
     warning_secondary: "#DEB11C",
+    notification: "#000",
   },
 };
 
