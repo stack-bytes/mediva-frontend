@@ -1,9 +1,11 @@
 import React from "react";
 
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import { Text } from "./ui/text";
 import { cn } from "@/lib/utils";
 import { Colors } from "@/constants/Colors";
+import { useRouter } from "expo-router";
+import { X } from "lucide-react-native";
 
 export interface IHeaderProps {
   icon: React.ReactElement;
@@ -21,16 +23,26 @@ export const Header: React.FC<IHeaderProps> = ({
   icon_color = Colors.dark.primary,
   ...props
 }) => {
+  const router = useRouter();
+
   return (
     <View className="w-full px-8 pt-10">
       <View
         className={cn(
-          "flex flex-row items-center justify-start gap-x-2",
+          "flex flex-row items-center justify-between gap-x-2",
           centered && "justify-center"
         )}
       >
-        {React.cloneElement(props.icon, { size: 36, color: icon_color })}
-        <Text className="text-4xl font-bold">{props.title}</Text>
+        <View className="flex-row items-center justify-start gap-x-2">
+          {React.cloneElement(props.icon, { size: 36, color: icon_color })}
+          <Text className="text-4xl font-bold">{props.title}</Text>
+        </View>
+
+        {router.canGoBack() && (
+          <Pressable onPress={() => router.canGoBack() && router.back()}>
+            <X size={24} color={Colors.dark.text_secondary} />
+          </Pressable>
+        )}
       </View>
 
       {props.subtitle && (

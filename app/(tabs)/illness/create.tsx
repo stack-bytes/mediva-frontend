@@ -52,6 +52,10 @@ export default function CreateIllnessScreen() {
         dosage: dosage,
       },
     ]);
+
+    //Reset the input fields
+    setMedicationName("");
+    setDosage("");
   };
 
   const removeMedication = async (itemName: string) => {
