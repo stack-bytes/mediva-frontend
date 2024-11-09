@@ -7,6 +7,8 @@ export interface IUser {
   email: string;
   password: string;
   phone: string;
+  age: number;
+  gender: "male" | "female" | "other";
 
   fullName: string;
   avatar: string;

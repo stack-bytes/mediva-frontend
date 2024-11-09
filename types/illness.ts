@@ -15,3 +15,17 @@ export interface IIllness {
 
   tags: string[];
 }
+
+export interface ISymptomReport {
+  id: string;
+
+  symptoms: string;
+  description: string;
+  severity: number;
+  emergency: boolean;
+
+  date: Date;
+
+  pacientId: IUser["id"];
+  doctorId: IUser["id"][];
+}
