@@ -5,7 +5,7 @@ export interface IUser {
 
   username: string;
   email: string;
-  password: string;
+
   phone: string;
   age: number;
   gender: "male" | "female" | "other";
@@ -15,7 +15,6 @@ export interface IUser {
 
   medic: null | IMedic;
 
-  gpg: string;
   doctorsId: string[];
 
   createdAt: Date;

@@ -1,21 +1,16 @@
-import { Tabs, useRouter } from "expo-router";
+import { Tabs } from "expo-router";
 import React from "react";
 
-import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import { Image } from "expo-image";
-import { AppLogo, AppLogoMono } from "@/components/images";
-import { Text } from "@/components/ui/text";
-import {
-  ClipboardPlus,
-  Hospital,
-  MapIcon,
-  Stethoscope,
-} from "lucide-react-native";
+import { AppLogoMono } from "@/components/images";
+import { ClipboardPlus, MapIcon, Stethoscope, User } from "lucide-react-native";
 import { cn } from "@/lib/utils";
+import { useSessionStore } from "@/hooks/useSession";
 
 export default function TabLayout() {
+  const { user } = useSessionStore((state) => state);
   return (
     <Tabs
       initialRouteName="(home)"
@@ -114,21 +109,15 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: "Profile",
-          href: `/profile/333`,
+          href: `/profile/${user.username}`,
           tabBarIcon: ({ color, focused }) => (
-            <View className="">
-              <Image
-                style={{
-                  width: focused ? 32 : 30,
-                  height: focused ? 32 : 30,
-                  borderRadius: 20,
-                  borderWidth: 3,
-                  marginBottom: -20,
-                  borderColor: focused ? Colors.dark.primary : "transparent",
-                }}
-                source="https://thispersondoesnotexist.com/"
-              />
-            </View>
+            <User
+              style={{
+                marginBottom: -20,
+              }}
+              color={color}
+              size={focused ? 32 : 30}
+            />
           ),
         }}
       />

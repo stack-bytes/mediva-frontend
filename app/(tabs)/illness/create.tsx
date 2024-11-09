@@ -45,6 +45,9 @@ export default function CreateIllnessScreen() {
   const [dosage, setDosage] = React.useState("");
 
   const addMedication = async () => {
+    if (medicationName.trim() === "" || dosage.trim() === "") {
+      return;
+    }
     setMedication([
       ...medication,
       {
@@ -63,7 +66,7 @@ export default function CreateIllnessScreen() {
   };
 
   const createIllness = async () => {
-    router.back();
+    router.push("/illness");
   };
 
   React.useEffect(() => {
