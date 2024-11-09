@@ -1,7 +1,13 @@
 import { Header } from "@/components/header";
 import { Gradient } from "@/components/images";
 import { ImageBackground } from "expo-image";
-import { SafeAreaView, ScrollView, View } from "react-native";
+import {
+  FlatList,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  View,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Text } from "@/components/ui/text";
@@ -25,6 +31,9 @@ import { Card } from "@/components/ui/card";
 import { DoctorCard } from "@/components/cards/doctor-card";
 import React from "react";
 import { useRouter } from "expo-router";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { GenericAppointments } from "@/generics/appointment";
+import { SectionHeader } from "@/components/section-header";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -75,14 +84,24 @@ export default function HomeScreen() {
             </Text>
           </View>
 
+          <View className="gap-y-4 px-8">
+            <Button
+              className="w-full gap-x-2"
+              onPress={() => router.push("/symptoms")}
+            >
+              <MessageCircleWarning color={Colors.dark.text_white} size={20} />
+              <Text>Report symtomps</Text>
+            </Button>
+          </View>
+
           <View className="flex w-full flex-1 flex-row justify-center gap-x-4 px-8">
             <View className="flex flex-1 flex-col items-center justify-start gap-y-4">
               <View className="flex aspect-square h-36 items-center justify-center gap-y-2 rounded-2xl border-2 border-border bg-card p-2">
                 <Text className="w-full text-center font-medium text-[##9F9F9F]">
                   Monthly Screening
                 </Text>
-                <Separator className="w-1/2" />
-                <Text className="w-full text-center text-3xl font-bold text-text-primary">
+
+                <Text className="w-full text-center text-xl font-bold text-text-primary">
                   10:00 AM
                 </Text>
 
@@ -93,46 +112,34 @@ export default function HomeScreen() {
                   </Text>
                 </View>
               </View>
-              <View className="aspect-square h-36 rounded-2xl border-2 border-border bg-card p-2">
-                <ImageBackground
-                  source="https://thispersondoesnotexist.com/"
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                  }}
-                  imageStyle={{
-                    borderRadius: 12,
-                  }}
+              <View className="flex aspect-square h-36 items-center justify-center rounded-2xl border-2 border-border bg-card p-2">
+                <Pressable
+                  onPress={() => router.push(`/profile/test`)}
+                  className="flex w-full items-center justify-center"
                 >
-                  <LinearGradient
-                    colors={["rgba(30, 30, 30, 0.4)", "rgba(10, 10, 10, 0.95)"]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 0, y: 1.2 }}
-                    style={{
-                      height: "100%",
-                      width: "100%",
-                      position: "absolute",
-                      borderRadius: 12,
-                    }}
-                  />
+                  <Avatar
+                    alt="Avatar"
+                    className="h-24 w-24 border-2 border-border"
+                  >
+                    <AvatarImage
+                      source={{ uri: "https://thispersondoesnotexist.com" }}
+                    />
 
-                  <View className="absolute top-2 flex w-full flex-row items-center justify-center gap-x-2 px-2">
-                    <Text className="w-full text-left text-xl font-bold text-white">
-                      Doctors
-                    </Text>
-                  </View>
+                    <AvatarFallback>
+                      <Text>ZN</Text>
+                    </AvatarFallback>
+                  </Avatar>
+                </Pressable>
 
-                  <View className="absolute bottom-3 flex w-full flex-row items-center justify-center gap-x-2 px-2">
-                    <Stethoscope size={20} color={Colors.dark.text_secondary} />
-                    <Text className="font-semibold text-[#9F9F9F]">
-                      Dr. Popescu
-                    </Text>
-                  </View>
-                </ImageBackground>
+                <View className="-bottom-2 flex w-full flex-col items-center justify-center gap-x-2 px-2">
+                  <Text className="w-full text-center text-sm font-semibold text-primary">
+                    ORTHOPEDIST
+                  </Text>
+                </View>
               </View>
             </View>
             <View className="flex h-fit flex-1 items-center justify-center gap-y-4 rounded-2xl border-2 border-border bg-card px-4 py-2">
-              <Text className="w-full text-center text-2xl font-semibold text-[##9F9F9F]">
+              <Text className="text-text-primart w-full text-center text-2xl font-semibold">
                 Chickenpox
               </Text>
               <Separator className="w-[50%]" />
@@ -157,49 +164,25 @@ export default function HomeScreen() {
                   <Check size={16} color={Colors.dark.success_primary} />
                   <Text>Active</Text>
                 </Badge>
-                <Badge
-                  className="flex flex-row items-center justify-center gap-x-1"
-                  variant="destructive"
-                >
-                  <TriangleAlert size={16} color={Colors.dark.error_primary} />
-                  <Text>Restrictions</Text>
-                </Badge>
               </View>
-              <Button variant="default" className="flex h-32 flex-row gap-x-2">
+              <Button className="flex h-32 flex-row gap-x-2">
                 <InfoIcon color={Colors.dark.text_white} size={20} />
-                <Text>View Prescription</Text>
+                <Text>Prescription</Text>
               </Button>
             </View>
           </View>
 
-          <Button className="flex h-32 w-16 flex-row gap-x-2">
-            <InfoIcon color={Colors.dark.text_white} size={20} />
-            <Text>View Prescription</Text>
-          </Button>
+          <View className="flex w-full items-center justify-center gap-y-4 px-8">
+            <SectionHeader title="Appointments" />
 
-          <View className="flex h-32 w-full px-8">
-            <Button
-              className="h-16 w-full gap-x-2"
-              variant="shadow"
-              onPress={() => router.push("/symptoms")}
-            >
-              <MessageCircleWarning
-                color={Colors.dark.text_secondary}
-                size={20}
-              />
-              <Text>Report symtomps</Text>
-            </Button>
-          </View>
-
-          <View className="flex w-full items-center justify-center px-8">
-            <AppointmentCard
-              avatar="https://thispersondoesnotexist.com"
-              date="03.12.2021"
-              grade="primary"
-              location="Bucharest"
-              name="Popescu"
-              specialty="GP"
-              time="10:00 AM"
+            <FlatList
+              data={GenericAppointments}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <AppointmentCard {...item} className="w-[82vw]" />
+              )}
+              ItemSeparatorComponent={() => <View className="h-4 w-4" />}
+              horizontal
             />
           </View>
         </ScrollView>

@@ -7,8 +7,7 @@ import { Button } from "@/components/ui/button";
 
 import { ClipboardPlus, Filter } from "lucide-react-native";
 import { Colors } from "@/constants/Colors";
-import { Separator } from "@/components/ui/separator";
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 
@@ -16,9 +15,13 @@ import { useRouter } from "expo-router";
 import { IIllness, ISymptomReport } from "@/types/illness";
 import { GenericIllnesses, GenericSymptomReports } from "@/generics/illness";
 import { SymptomCard } from "@/components/cards/symptom-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { IllnessCard } from "@/components/cards/illness-card";
 
 export default function IllnessesScreen() {
   const router = useRouter();
+
+  const [value, setValue] = useState<"reports" | "illnesses">("reports");
 
   const [illnesses, setIllnesses] = React.useState<null | IIllness[]>([]);
   const [symptomReports, setSymptomReports] = React.useState<
@@ -59,26 +62,60 @@ export default function IllnessesScreen() {
           </Button>
         </View>
 
-        <Separator className="w-[40%]" />
-
         <View className="h-full w-full flex-1 px-8">
-          <SectionList
-            sections={[
-              {
-                title: "Symptom Reports",
-                data: symptomReports,
-              },
-            ].filter((section) => section.data.length > 0)}
-            renderSectionHeader={({ section: { title } }) => (
-              <Text className="bg-card text-lg font-semibold">{title}</Text>
-            )}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <SymptomCard id={item.id} />}
-            className="w-full"
-            contentContainerStyle={{
-              rowGap: 15,
-            }}
-          />
+          <Tabs
+            value={value}
+            onValueChange={setValue}
+            className="mx-auto w-full flex-col gap-1.5"
+          >
+            <TabsList className="w-full flex-row">
+              <TabsTrigger value="reports" className="flex-1">
+                <Text>Reports</Text>
+              </TabsTrigger>
+              <TabsTrigger value="illnesses" className="flex-1">
+                <Text>Illnesses</Text>
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="reports">
+              <SectionList
+                sections={[
+                  {
+                    title: "Symptom Reports",
+                    data: symptomReports,
+                  },
+                ].filter((section) => section.data.length > 0)}
+                renderSectionHeader={({ section: { title } }) => (
+                  <Text className="bg-card text-lg font-semibold">{title}</Text>
+                )}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => <SymptomCard id={item.id} />}
+                className="w-full"
+                contentContainerStyle={{
+                  rowGap: 15,
+                }}
+              />
+            </TabsContent>
+            <TabsContent value="illnesses">
+              <SectionList
+                sections={[
+                  {
+                    title: "Patient Illnesses",
+                    data: illnesses,
+                  },
+                ].filter((section) => section.data.length > 0)}
+                renderSectionHeader={({ section: { title } }) => (
+                  <Text className="bg-card text-lg font-semibold">{title}</Text>
+                )}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => <IllnessCard id={item.id} />}
+                className="w-full"
+                contentContainerStyle={{
+                  rowGap: 15,
+                }}
+              />
+            </TabsContent>
+          </Tabs>
         </View>
       </SafeAreaView>
     </ImageBackground>

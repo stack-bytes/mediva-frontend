@@ -13,15 +13,19 @@ import { IUser } from "@/types/user";
 import { IAppointment } from "@/types/appointment";
 import React, { useEffect } from "react";
 import { GenericUsers } from "@/generics/user";
+import { cn } from "@/lib/utils";
 
 interface IAppointmentCardProps
-  extends Omit<IAppointment, "title" & "geolocation" & "pacientId"> {}
+  extends Omit<IAppointment, "title" & "geolocation" & "pacientId"> {
+  className: string;
+}
 
 export const AppointmentCard: React.FC<IAppointmentCardProps> = ({
   id,
   doctorId,
   dateTime,
   location,
+  className,
 }) => {
   const router = useRouter();
 
@@ -43,7 +47,7 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = ({
   }
 
   return (
-    <Card key={id} className="h-fit w-full flex-col gap-y-4">
+    <Card key={id} className={cn("h-fit w-full flex-col gap-y-4", className)}>
       <View className="flex h-fit w-full flex-row items-center justify-start gap-x-2">
         <Pressable
           onPress={() => router.push(`/profile/${foundDoctor.username}`)}
