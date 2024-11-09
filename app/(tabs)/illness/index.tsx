@@ -7,25 +7,37 @@ import { Button } from "@/components/ui/button";
 
 import {
   CalendarClock,
-  Check,
   ClipboardPlus,
   Eye,
   Filter,
-  Stethoscope,
   Tablets,
-  TriangleAlert,
 } from "lucide-react-native";
 import { Colors } from "@/constants/Colors";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 import { Input } from "@/components/ui/input";
-import { BlurView } from "expo-blur";
 import { Card } from "@/components/ui/card";
 import { Text } from "@/components/ui/text";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+
+import { useRouter } from "expo-router";
+import { IIllness } from "@/types/illness";
+import { GenericIllnesses } from "@/generics/illness";
 
 export default function IllnessesScreen() {
+  const router = useRouter();
+
+  const [illnesses, setIllnesses] = React.useState<null | IIllness[]>([]);
+
+  React.useEffect(() => {
+    // Fetch the user's illnesses
+
+    setIllnesses(GenericIllnesses);
+  }, []);
+
+  if (!illnesses) {
+    return null;
+  }
+
   return (
     <ImageBackground
       style={{
@@ -53,26 +65,8 @@ export default function IllnessesScreen() {
 
         <View className="h-full w-full flex-1 px-8">
           <FlatList
-            data={[
-              {
-                avatar: "https://thispersondoesnotexist.com/",
-                name: "Chickenpox",
-                date: "2021-10-10",
-                doctor: "John Doe",
-                tags: [
-                  {
-                    name: "Infectious",
-                    category: "destructive",
-                    icon: <TriangleAlert color={Colors.dark.error_primary} />,
-                  },
-                  {
-                    name: "Active",
-                    category: "success",
-                    icon: <Check color={Colors.dark.success_primary} />,
-                  },
-                ],
-              },
-            ]}
+            data={illnesses}
+            keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <Card className="flex flex-col items-center justify-start gap-y-4">
                 <View className="flex w-full flex-row items-center justify-start gap-x-2">
@@ -85,37 +79,18 @@ export default function IllnessesScreen() {
                 <View className="flex w-full flex-row items-center justify-start gap-x-2">
                   <CalendarClock size={20} color={Colors.dark.text_secondary} />
                   <Text className="text-lg font-medium text-text-primary">
-                    {item.date}
+                    {item.date.toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
                   </Text>
                 </View>
 
-                <View className="flex w-full flex-row items-center justify-start gap-x-2">
-                  <Stethoscope size={20} color={Colors.dark.text_secondary} />
-                  <Text className="text-lg font-medium text-text-primary">
-                    Diagnosed by Dr. {item.doctor}
-                  </Text>
-                </View>
-
-                <View className="flex w-full flex-row items-center justify-start gap-x-2 pt-4">
-                  {item.tags.map((tag) => (
-                    <Badge
-                      variant={tag.category ?? "outline"}
-                      className="flex-row gap-x-2"
-                    >
-                      {tag.icon}
-                      <Text
-                        className={cn(
-                          "text-text-primary",
-                          `text-${tag.category ?? "text-primary"}`
-                        )}
-                      >
-                        {tag.name}
-                      </Text>
-                    </Badge>
-                  ))}
-                </View>
-
-                <Button className="absolute bottom-4 right-4 aspect-square h-10">
+                <Button
+                  className="absolute bottom-4 right-4 aspect-square h-10"
+                  onPress={() => router.push("/illness/1")}
+                >
                   <Eye color={Colors.dark.text_white} />
                 </Button>
               </Card>

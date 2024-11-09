@@ -15,7 +15,7 @@ import { AppointmentCard } from "@/components/cards/appointment-card";
 import { GenericAppointments } from "@/generics/appointment";
 import { IAppointment } from "@/types/appointment";
 
-export default function IllnessesScreen() {
+export default function AppointmentsScreen() {
   const [appointments, setAppointments] = React.useState<null | IAppointment[]>(
     []
   );
