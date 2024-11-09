@@ -4,12 +4,8 @@ export default function StackLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
-      <Stack.Screen
-        name="create"
-        options={{
-          presentation: "containedModal",
-        }}
-      />
+      <Stack.Screen name="create" />
+      <Stack.Screen name="report" />
     </Stack>
   );
 }

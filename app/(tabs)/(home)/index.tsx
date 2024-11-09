@@ -1,4 +1,3 @@
-import { Header } from "@/components/header";
 import { Gradient } from "@/components/images";
 import { ImageBackground } from "expo-image";
 import {
@@ -8,7 +7,6 @@ import {
   ScrollView,
   View,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 
 import { Text } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
@@ -21,14 +19,11 @@ import {
   InfoIcon,
   MessageCircleWarning,
   Stethoscope,
-  TriangleAlert,
 } from "lucide-react-native";
 import { Colors } from "@/constants/Colors";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { AppointmentCard } from "@/components/cards/appointment-card";
-import { Card } from "@/components/ui/card";
-import { DoctorCard } from "@/components/cards/doctor-card";
 import React from "react";
 import { useRouter } from "expo-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -87,7 +82,7 @@ export default function HomeScreen() {
           <View className="gap-y-4 px-8">
             <Button
               className="w-full gap-x-2"
-              onPress={() => router.push("/symptoms")}
+              onPress={() => router.push("/illness/report")}
             >
               <MessageCircleWarning color={Colors.dark.text_white} size={20} />
               <Text>Report symtomps</Text>

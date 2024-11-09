@@ -16,12 +16,15 @@ export interface IIllness {
   tags: string[];
 }
 
+export interface ISymptom {
+  name: string;
+  severity: number;
+}
 export interface ISymptomReport {
   id: string;
-
-  symptoms: string;
   description: string;
-  severity: number;
+
+  symptoms: ISymptom[];
   emergency: boolean;
 
   date: Date;
