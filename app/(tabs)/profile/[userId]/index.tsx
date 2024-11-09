@@ -26,10 +26,27 @@ import { Card } from "@/components/ui/card";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useLocalSearchParams } from "expo-router";
+import { IUser } from "@/types/user";
+import { GenericUsers } from "@/generics/user";
+import { SectionHeader } from "@/components/section-header";
+import { GenericAppointments } from "@/generics/appointment";
+
+const OWN_USER = true;
 
 export default function ProfileScreen() {
   const { userId } = useLocalSearchParams<{ userId: string }>();
 
+  const [user, setUser] = React.useState<null | IUser>(null);
+
+  React.useEffect(() => {
+    // Fetch the user's information
+    if (OWN_USER) setUser(GenericUsers[0]);
+    else setUser(GenericUsers[7]);
+  }, [userId]);
+
+  if (!user) {
+    return <Text> Couldn't find the user </Text>;
+  }
   return (
     <ImageBackground
       style={{
@@ -66,41 +83,45 @@ export default function ProfileScreen() {
           <View className="flex w-full flex-col items-center justify-center gap-y-2">
             <Avatar
               alt="Profile image"
-              className="aspect-square h-fit w-1/2 border-4 border-primary"
+              className="aspect-square h-fit w-1/2 border-4 border-border"
             >
               <AvatarImage
                 source={{ uri: "https://thispersondoesnotexist.com" }}
               />
               <AvatarFallback>
-                <Text>DP</Text>
+                <Text>A</Text>
               </AvatarFallback>
             </Avatar>
 
             <Text className="text-3xl font-bold text-text-primary">
-              {userId}
+              {user.fullName}
             </Text>
 
             <Text className="text-xl font-semibold text-text-primary">
-              @popescumarian
+              @{user.username}
             </Text>
 
-            <View className="flex flex-row gap-x-1">
-              <BadgeCheck
-                size={24}
-                color={Colors.dark.text_white}
-                fill={Colors.dark.primary}
-              />
-              <Text className="text-xl font-semibold text-primary">
-                Orthopedist
-              </Text>
-            </View>
+            {user.medic && (
+              <>
+                <View className="flex flex-row gap-x-1">
+                  <BadgeCheck
+                    size={24}
+                    color={Colors.dark.text_white}
+                    fill={Colors.dark.primary}
+                  />
+                  <Text className="text-xl font-semibold text-primary">
+                    {user.medic.specialty}
+                  </Text>
+                </View>
 
-            <View className="flex flex-row gap-x-2">
-              <Hospital size={24} color={Colors.dark.error_primary} />
-              <Text className="text-lg font-semibold text-destructive">
-                Spitalul Clinic de Urgenta Timisoara
-              </Text>
-            </View>
+                <View className="flex flex-row gap-x-2">
+                  <Hospital size={24} color={Colors.dark.error_primary} />
+                  <Text className="text-lg font-semibold text-destructive">
+                    {user.medic.workplace}
+                  </Text>
+                </View>
+              </>
+            )}
           </View>
 
           <View className="w-full gap-y-4 px-8">
@@ -109,83 +130,79 @@ export default function ProfileScreen() {
               <Text>Health Wallet</Text>
             </Button>
 
-            <Text className="text-lg font-medium">Appointments</Text>
+            {user.medic && (
+              <>
+                <SectionHeader title="Appointments" />
 
-            <View className="flex w-full flex-row justify-center gap-x-2">
-              <Button className="flex-1" variant="destructive">
-                <CalendarCheck color={Colors.dark.text_white} />
-                <Text className="text-text-white">Book an appointment</Text>
-              </Button>
-              <Button variant="destructive" className="aspect-square">
-                <Phone color={Colors.dark.text_white} />
-              </Button>
-            </View>
+                <View className="flex w-full flex-row justify-center gap-x-2">
+                  <Button className="flex-1" variant="destructive">
+                    <CalendarCheck color={Colors.dark.text_white} />
+                    <Text className="text-text-white">Book an appointment</Text>
+                  </Button>
+                  <Button variant="destructive" className="aspect-square">
+                    <Phone color={Colors.dark.text_white} />
+                  </Button>
+                </View>
 
-            {/* MEDIC INFORMATION */}
-            <Text className="text-lg font-medium">Information</Text>
+                {/* MEDIC INFORMATION */}
+                <SectionHeader title="Information" />
 
-            <Card className="flex h-fit w-full flex-row items-center justify-center gap-x-4">
-              <View className="flex w-fit flex-col items-center justify-center text-primary">
-                <Smile size={24} color={Colors.dark.primary} />
-                <Text className="text-base font-medium text-primary">
-                  24 patients
-                </Text>
-              </View>
+                <Card className="flex h-fit w-full flex-row items-center justify-center gap-x-4">
+                  <View className="flex w-fit flex-col items-center justify-center text-primary">
+                    <Smile size={24} color={Colors.dark.primary} />
+                    <Text className="text-base font-medium text-primary">
+                      24 patients
+                    </Text>
+                  </View>
 
-              <Separator
-                orientation="vertical"
-                className="h-1/2 bg-text-foreground"
-              />
+                  <Separator
+                    orientation="vertical"
+                    className="h-1/2 bg-text-foreground"
+                  />
 
-              <View className="flex w-fit flex-col items-center justify-center text-accent">
-                <Star
-                  fill={Colors.dark.accent}
-                  size={24}
-                  color={Colors.dark.accent}
-                />
-                <Text className="text-base font-medium text-accent">
-                  4.5 stars
-                </Text>
-              </View>
+                  <View className="flex w-fit flex-col items-center justify-center text-accent">
+                    <Star
+                      fill={Colors.dark.accent}
+                      size={24}
+                      color={Colors.dark.accent}
+                    />
+                    <Text className="text-base font-medium text-accent">
+                      4.5 stars
+                    </Text>
+                  </View>
 
-              <Separator
-                orientation="vertical"
-                className="h-1/2 bg-text-foreground"
-              />
+                  <Separator
+                    orientation="vertical"
+                    className="h-1/2 bg-text-foreground"
+                  />
 
-              <View className="flex w-fit flex-col items-center justify-center text-secondary">
-                <Calendar size={24} color={Colors.dark.secondary} />
-                <Text className="text-base font-medium text-secondary">
-                  10 years active
-                </Text>
-              </View>
-            </Card>
+                  <View className="flex w-fit flex-col items-center justify-center text-secondary">
+                    <Calendar size={24} color={Colors.dark.secondary} />
+                    <Text className="text-base font-medium text-secondary">
+                      10 years active
+                    </Text>
+                  </View>
+                </Card>
 
-            <Text className="text-lg font-medium">Bio</Text>
+                <SectionHeader title="Bio" />
 
-            <Card className="flex w-full flex-row items-center justify-center gap-x-4">
-              <Text className="text-base text-text-foreground">
-                Professional medical consultant since 2014. Graduated from
-                Harvard University, specialization neurology. Mail:
-                robbin.edward@doctor.edu Phone: +40794232412
-              </Text>
-            </Card>
+                <Card className="flex w-full flex-row items-center justify-center gap-x-4">
+                  <Text className="text-base text-text-foreground">
+                    Professional medical consultant since 2014. Graduated from
+                    Harvard University, specialization neurology. Mail:
+                    robbin.edward@doctor.edu Phone: +40794232412
+                  </Text>
+                </Card>
+              </>
+            )}
 
-            <View className="flex w-full flex-row items-center justify-between">
-              <Text className="text-lg font-medium">Appointments</Text>
+            {OWN_USER && (
+              <>
+                <SectionHeader title="Appointments" />
 
-              <ChevronRight size={24} color={Colors.dark.accent} />
-            </View>
-
-            <AppointmentCard
-              avatar="https://thispersondoesnotexist.com"
-              name="Popescu Marian"
-              specialty="Orthopedist"
-              grade="primary"
-              location="Spitalul Clinic de Urgenta"
-              time="10:00-10:15 AM"
-              date="03.12.2021"
-            />
+                <AppointmentCard {...GenericAppointments[0]} />
+              </>
+            )}
           </View>
         </ScrollView>
       </SafeAreaView>

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "expo-router";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { IUser } from "@/types/user";
+import { Colors } from "@/constants/Colors";
 
 interface IDoctorCardProps {
   doctor: IUser; //An user with an existing medical license
@@ -24,7 +25,7 @@ export const DoctorCard: React.FC<IDoctorCardProps> = ({ doctor }) => {
     <Card className="h-fit w-full flex-col gap-y-4">
       <View className="flex w-full flex-row items-center justify-start gap-x-2">
         <Pressable onPress={() => router.push(`/profile/${doctor.username}`)}>
-          <Avatar alt="Avatar" className="h-16 w-16 border-2 border-primary">
+          <Avatar alt="Avatar" className="h-16 w-16 border-2 border-border">
             <AvatarImage source={{ uri: doctor.avatar }} />
             <AvatarFallback>
               <Text>ZN</Text>
@@ -42,8 +43,8 @@ export const DoctorCard: React.FC<IDoctorCardProps> = ({ doctor }) => {
       </View>
 
       <View className="flex h-fit w-full gap-y-2">
-        <View className="flex w-full flex-row items-center justify-start gap-x-2 text-primary">
-          <CalendarCheck size={24} color="#8E6EEA" />
+        <View className="flex w-full flex-row items-center justify-start gap-x-2 text-secondary">
+          <CalendarCheck size={24} color={Colors.dark.secondary} />
           <Text className="text-base font-medium text-text-foreground">
             active since{" "}
             {doctor.medic.activeSince.toLocaleDateString("en-US", {
@@ -55,14 +56,18 @@ export const DoctorCard: React.FC<IDoctorCardProps> = ({ doctor }) => {
         </View>
 
         <View className="flex w-full flex-row items-center justify-start gap-x-2 text-warning">
-          <Star size={24} fill="#F2BC08" color="#F2BC08" />
+          <Star
+            size={24}
+            fill={Colors.dark.warning_primary}
+            color={Colors.dark.warning_primary}
+          />
           <Text className="text-base font-medium text-text-foreground">
             {doctor.medic.ratings} stars (125 ratings)
           </Text>
         </View>
 
-        <View className="text- flex w-full flex-row items-center justify-start gap-x-2 text-destructive">
-          <Hospital size={24} color="#B02E2E" />
+        <View className="text- flex w-full flex-row items-center justify-start gap-x-2 text-primary">
+          <Hospital size={24} color={Colors.dark.primary} />
           <Text className="text-base font-medium text-text-foreground">
             {doctor.medic.workplace}
           </Text>

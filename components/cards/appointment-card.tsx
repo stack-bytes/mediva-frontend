@@ -48,7 +48,7 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = ({
         <Pressable
           onPress={() => router.push(`/profile/${foundDoctor.username}`)}
         >
-          <Avatar alt="Avatar" className="h-16 w-16 border-2 border-primary">
+          <Avatar alt="Avatar" className="h-16 w-16 border-2 border-border">
             <AvatarImage source={{ uri: foundDoctor.avatar }} />
             <AvatarFallback>
               <Text>ZN</Text>
@@ -79,9 +79,9 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = ({
           className="h-1/2 bg-text-foreground"
         />
 
-        <View className="flex w-fit flex-col items-center justify-center text-accent">
-          <Clock size={24} color={Colors.dark.accent} />
-          <Text className="text-base font-medium text-accent">
+        <View className="flex w-fit flex-col items-center justify-center text-text-primary">
+          <Clock size={24} color={Colors.dark.text_secondary} />
+          <Text className="text-base font-medium text-text-foreground">
             {date.toLocaleString("en-US", {
               hour: "numeric",
               minute: "numeric",
@@ -95,9 +95,9 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = ({
           className="h-1/2 bg-text-foreground"
         />
 
-        <View className="flex w-fit flex-col items-center justify-center text-secondary">
-          <Calendar size={24} color={Colors.dark.secondary} />
-          <Text className="text-base font-medium text-secondary">
+        <View className="flex w-fit flex-col items-center justify-center text-primary">
+          <Calendar size={24} color={Colors.dark.primary} />
+          <Text className="text-base font-medium text-primary">
             {date.toLocaleDateString("en-US", {
               day: "2-digit",
               month: "2-digit",
@@ -112,8 +112,8 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = ({
         variant="shadow"
         onPress={onDetailsPress}
       >
-        <Info size={24} color="#9F9F9F" />
-        <Text>See details</Text>
+        <Info size={24} color={Colors.dark.text_primary} />
+        <Text className="text-text-primary">See details</Text>
       </Button>
     </Card>
   );
