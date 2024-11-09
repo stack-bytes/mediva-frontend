@@ -13,8 +13,31 @@ import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { AppointmentCard } from "@/components/cards/appointment-card";
 import { GenericAppointments } from "@/generics/appointment";
+import { IAppointment } from "@/types/appointment";
 
 export default function IllnessesScreen() {
+  const [appointments, setAppointments] = React.useState<null | IAppointment[]>(
+    []
+  );
+
+  const isToday = (date: Date) => {
+    const today = new Date();
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    );
+  };
+
+  React.useEffect(() => {
+    // Fetch the user's appointments
+    setAppointments(GenericAppointments);
+  }, []);
+
+  if (!appointments) {
+    return null;
+  }
+
   return (
     <ImageBackground
       style={{
@@ -45,11 +68,15 @@ export default function IllnessesScreen() {
             sections={[
               {
                 title: "Today",
-                data: [GenericAppointments[0]],
+                data: appointments.filter((appointment) =>
+                  isToday(new Date(appointment.dateTime))
+                ),
               },
               {
                 title: "Upcoming",
-                data: [GenericAppointments[1], GenericAppointments[2]],
+                data: appointments.filter(
+                  (appointment) => !isToday(new Date(appointment.dateTime))
+                ),
               },
             ]}
             renderSectionHeader={({ section: { title } }) => (
