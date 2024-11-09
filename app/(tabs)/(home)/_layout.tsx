@@ -8,6 +8,13 @@ export default function StackLayout() {
       }}
     >
       <Stack.Screen name="index" />
+      <Stack.Screen name="symptoms" />
+      <Stack.Screen
+        name="symptoms-list"
+        options={{
+          presentation: "containedModal",
+        }}
+      />
     </Stack>
   );
 }

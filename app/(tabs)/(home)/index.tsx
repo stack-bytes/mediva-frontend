@@ -75,9 +75,9 @@ export default function HomeScreen() {
             </Text>
           </View>
 
-          <View className="flex h-[21rem] w-[100%] flex-row justify-center gap-x-4 px-8">
-            <View className="flex w-[40%] flex-col items-center justify-start">
-              <View className="flex aspect-square h-[50%] items-center justify-center gap-y-2 rounded-2xl border-2 border-border bg-card p-2">
+          <View className="flex w-full flex-1 flex-row justify-center gap-x-4 px-8">
+            <View className="flex flex-1 flex-col items-center justify-start gap-y-4">
+              <View className="flex aspect-square h-36 items-center justify-center gap-y-2 rounded-2xl border-2 border-border bg-card p-2">
                 <Text className="w-full text-center font-medium text-[##9F9F9F]">
                   Monthly Screening
                 </Text>
@@ -93,7 +93,7 @@ export default function HomeScreen() {
                   </Text>
                 </View>
               </View>
-              <View className="aspect-square h-[50%] rounded-2xl border-2 border-border bg-card p-2">
+              <View className="aspect-square h-36 rounded-2xl border-2 border-border bg-card p-2">
                 <ImageBackground
                   source="https://thispersondoesnotexist.com/"
                   style={{
@@ -112,6 +112,7 @@ export default function HomeScreen() {
                       height: "100%",
                       width: "100%",
                       position: "absolute",
+                      borderRadius: 12,
                     }}
                   />
 
@@ -130,7 +131,7 @@ export default function HomeScreen() {
                 </ImageBackground>
               </View>
             </View>
-            <View className="flex h-full w-[60%] items-center justify-center gap-y-6 rounded-2xl border-2 border-border bg-card p-2">
+            <View className="flex h-fit flex-1 items-center justify-center gap-y-4 rounded-2xl border-2 border-border bg-card px-4 py-2">
               <Text className="w-full text-center text-2xl font-semibold text-[##9F9F9F]">
                 Chickenpox
               </Text>
@@ -164,18 +165,23 @@ export default function HomeScreen() {
                   <Text>Restrictions</Text>
                 </Badge>
               </View>
-              <Button variant="shadow" className="flex flex-row gap-x-2">
-                <InfoIcon color={Colors.dark.text_secondary} size={20} />
+              <Button variant="default" className="flex h-32 flex-row gap-x-2">
+                <InfoIcon color={Colors.dark.text_white} size={20} />
                 <Text>View Prescription</Text>
               </Button>
             </View>
           </View>
 
+          <Button className="flex h-32 w-16 flex-row gap-x-2">
+            <InfoIcon color={Colors.dark.text_white} size={20} />
+            <Text>View Prescription</Text>
+          </Button>
+
           <View className="flex h-32 w-full px-8">
             <Button
               className="h-16 w-full gap-x-2"
               variant="shadow"
-              onPress={() => router.push("/symtomps")}
+              onPress={() => router.push("/symptoms")}
             >
               <MessageCircleWarning
                 color={Colors.dark.text_secondary}

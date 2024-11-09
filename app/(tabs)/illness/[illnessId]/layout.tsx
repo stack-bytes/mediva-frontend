@@ -5,6 +5,7 @@ export default function StackLayout() {
     <Stack>
       <Stack.Screen name="index" />
       <Stack.Screen name="prescription" />
+      <Stack.Screen name="create-prescription" />
     </Stack>
   );
 }
