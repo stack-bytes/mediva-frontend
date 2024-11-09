@@ -1,5 +1,3 @@
-import { Image, ImageBackground } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
 import { Calendar, Clock, Info, MapPin } from "lucide-react-native";
 
 import { Pressable, View } from "react-native";
@@ -9,29 +7,45 @@ import { Text } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Colors } from "@/constants/Colors";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { IUser } from "@/types/user";
+import { IAppointment } from "@/types/appointment";
+import React, { useEffect } from "react";
+import { GenericUsers } from "@/generics/user";
 
-interface IAppointmentCardProps {
-  name: string;
-  avatar: string;
-  specialty: string;
-  grade: "specialist" | "primary";
+interface IAppointmentCardProps
+  extends Omit<IAppointment, "title" & "geolocation" & "pacientId"> {}
 
-  location: string;
-  time: string;
-  date: string;
-}
-
-export const AppointmentCard: React.FC<IAppointmentCardProps> = (props) => {
+export const AppointmentCard: React.FC<IAppointmentCardProps> = ({
+  id,
+  doctorId,
+  dateTime,
+  location,
+}) => {
   const router = useRouter();
 
+  const date = new Date(dateTime);
+
+  const [foundDoctor, setFoundDoctor] = React.useState<IUser | null>(null);
+
+  useEffect(() => {
+    // Fetch the doctor's data
+    setFoundDoctor(GenericUsers.filter((user) => user.medic !== null)[0]);
+  }, [doctorId]);
+
+  if (!foundDoctor || !foundDoctor.medic) {
+    return;
+  }
+
   return (
-    <Card className="h-fit w-full flex-col gap-y-4">
+    <Card key={id} className="h-fit w-full flex-col gap-y-4">
       <View className="flex h-fit w-full flex-row items-center justify-start gap-x-2">
-        <Pressable onPress={() => router.push(`/profile/${props.name}`)}>
+        <Pressable
+          onPress={() => router.push(`/profile/${foundDoctor.username}`)}
+        >
           <Avatar alt="Avatar" className="h-16 w-16 border-2 border-primary">
-            <AvatarImage source={{ uri: props.avatar }} />
+            <AvatarImage source={{ uri: foundDoctor.avatar }} />
             <AvatarFallback>
               <Text>ZN</Text>
             </AvatarFallback>
@@ -40,10 +54,10 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = (props) => {
 
         <View className="flex flex-col items-center justify-start">
           <Text className="w-full text-left font-medium text-text-foreground">
-            {props.specialty}, {props.grade}
+            {foundDoctor.medic.specialty}, {foundDoctor.medic.grade}
           </Text>
           <Text className="w-full text-left text-2xl font-semibold text-primary">
-            Dr. {props.name}
+            Dr. {foundDoctor.fullName}
           </Text>
         </View>
       </View>
@@ -52,7 +66,7 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = (props) => {
         <View className="flex w-fit flex-col items-center justify-center text-primary">
           <MapPin size={24} color={Colors.dark.primary} />
           <Text className="text-base font-medium text-primary">
-            {props.location.slice(0, 10)}...
+            {location.slice(0, 10)}...
           </Text>
         </View>
 
@@ -64,7 +78,11 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = (props) => {
         <View className="flex w-fit flex-col items-center justify-center text-accent">
           <Clock size={24} color={Colors.dark.accent} />
           <Text className="text-base font-medium text-accent">
-            {props.time}
+            {date.toLocaleString("en-US", {
+              hour: "numeric",
+              minute: "numeric",
+              hour12: true,
+            })}
           </Text>
         </View>
 
@@ -76,7 +94,11 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = (props) => {
         <View className="flex w-fit flex-col items-center justify-center text-secondary">
           <Calendar size={24} color={Colors.dark.secondary} />
           <Text className="text-base font-medium text-secondary">
-            {props.date}
+            {date.toLocaleDateString("en-US", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}
           </Text>
         </View>
       </View>

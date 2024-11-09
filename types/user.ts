@@ -14,7 +14,7 @@ export interface IUser {
   medic: null | IMedic;
 
   gpg: string;
-  doctors: string[];
+  doctorsId: string[];
 
   createdAt: string;
   updatedAt: string;

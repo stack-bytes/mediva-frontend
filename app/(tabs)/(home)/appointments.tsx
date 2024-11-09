@@ -1,28 +1,18 @@
 import { Header } from "@/components/header";
 import { Gradient } from "@/components/images";
 import { ImageBackground } from "expo-image";
-import { FlatList, SafeAreaView, SectionList, View } from "react-native";
+import { SafeAreaView, SectionList, View } from "react-native";
 
 import { Button } from "@/components/ui/button";
 
-import {
-  CalendarClock,
-  Check,
-  Eye,
-  Filter,
-  Stethoscope,
-  Tablets,
-  TriangleAlert,
-} from "lucide-react-native";
+import { CalendarClock, Filter } from "lucide-react-native";
 import { Colors } from "@/constants/Colors";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
 import { Text } from "@/components/ui/text";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 import { AppointmentCard } from "@/components/cards/appointment-card";
+import { GenericAppointments } from "@/generics/appointment";
 
 export default function IllnessesScreen() {
   return (
@@ -55,41 +45,17 @@ export default function IllnessesScreen() {
             sections={[
               {
                 title: "Today",
-                data: [
-                  {
-                    avatar: "https://thispersondoesnotexist.com/",
-                    name: "Chickenpox",
-                    date: "2021-10-10",
-                    doctor: "John Doe",
-                  },
-                ],
+                data: [GenericAppointments[0]],
               },
               {
                 title: "Upcoming",
-                data: [
-                  {
-                    avatar: "https://thispersondoesnotexist.com/",
-                    name: "Polirt Joseph",
-                    date: "2021-10-10",
-                    doctor: "John Doe",
-                  },
-                ],
+                data: [GenericAppointments[1], GenericAppointments[2]],
               },
             ]}
             renderSectionHeader={({ section: { title } }) => (
               <Text className="bg-card text-lg font-semibold">{title}</Text>
             )}
-            renderItem={({ item }) => (
-              <AppointmentCard
-                avatar="https://thispersondoesnotexist.com/"
-                name={item.name}
-                date="2021-10-10"
-                grade="primary"
-                location="Bucharest, Romania"
-                specialty="Dermatology"
-                time="10:00-10:15 AM"
-              />
-            )}
+            renderItem={({ item }) => <AppointmentCard {...item} />}
             className="w-full"
             contentContainerStyle={{
               rowGap: 15,
