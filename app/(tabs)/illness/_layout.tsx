@@ -4,7 +4,6 @@ export default function StackLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
-      <Stack.Screen name="report" />
       <Stack.Screen
         name="create"
         options={{

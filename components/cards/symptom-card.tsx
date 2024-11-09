@@ -3,7 +3,7 @@ import { View, Pressable, Text } from "react-native";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { TriangleAlert, CalendarClock, Eye, Plus } from "lucide-react-native";
+import { TriangleAlert, CalendarClock, PlusCircle } from "lucide-react-native";
 import { Colors } from "@/constants/Colors";
 import { useRouter } from "expo-router";
 import { IUser } from "@/types/user";
@@ -93,15 +93,9 @@ export const SymptomCard: React.FC<ISymptomCardProps> = ({
         <>
           <Button
             className="absolute bottom-4 right-4 aspect-square h-10"
-            onPress={() => router.push(`/illness/report/${id}`)}
-          >
-            <Eye color={Colors.dark.text_white} />
-          </Button>
-          <Button
-            className="absolute bottom-4 right-16 aspect-square h-10"
             onPress={() => router.push(`/illness/create`)}
           >
-            <Plus color={Colors.dark.text_white} />
+            <PlusCircle color={Colors.dark.text_white} />
           </Button>
         </>
       )}

@@ -143,7 +143,7 @@ export default function CreateIllnessScreen() {
               {medication.length > 0 && (
                 <>
                   <Separator className="w-1/2" />
-                  <SectionHeader title="Prescribed" />{" "}
+                  <SectionHeader title="Prescribed" />
                 </>
               )}
               <FlatList
