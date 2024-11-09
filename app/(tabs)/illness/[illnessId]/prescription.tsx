@@ -1,33 +1,17 @@
 import { Header } from "@/components/header";
 import { Gradient } from "@/components/images";
 import { Image, ImageBackground } from "expo-image";
-import { Pressable, SafeAreaView, ScrollView, View } from "react-native";
+import { SafeAreaView, ScrollView, View } from "react-native";
 
-import { Button } from "@/components/ui/button";
-
-import {
-  ChevronRight,
-  ChevronsRight,
-  ClipboardPlus,
-  File,
-  Filter,
-  Pill,
-  Plus,
-  PlusCircle,
-  SquareActivity,
-} from "lucide-react-native";
+import { ClipboardPlus } from "lucide-react-native";
 import { Colors } from "@/constants/Colors";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
-import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { useLocalSearchParams } from "expo-router";
 import { IIllness } from "@/types/illness";
 import { GenericIllnesses } from "@/generics/illness";
-import { FlatList } from "react-native";
 import { Card } from "@/components/ui/card";
-import { AppointmentCard } from "@/components/cards/appointment-card";
-import { GenericAppointments } from "@/generics/appointment";
 import { SectionHeader } from "@/components/section-header";
 
 export default function PrescriptionScreen() {

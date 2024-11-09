@@ -29,6 +29,10 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = ({
 
   const [foundDoctor, setFoundDoctor] = React.useState<IUser | null>(null);
 
+  const onDetailsPress = async () => {
+    router.push(`/appointments/${id}`);
+  };
+
   useEffect(() => {
     // Fetch the doctor's data
     setFoundDoctor(GenericUsers.filter((user) => user.medic !== null)[0]);
@@ -106,6 +110,7 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = ({
       <Button
         className="flex w-full items-center justify-center text-text-foreground"
         variant="shadow"
+        onPress={onDetailsPress}
       >
         <Info size={24} color="#9F9F9F" />
         <Text>See details</Text>

@@ -45,7 +45,12 @@ export const DoctorCard: React.FC<IDoctorCardProps> = ({ doctor }) => {
         <View className="flex w-full flex-row items-center justify-start gap-x-2 text-primary">
           <CalendarCheck size={24} color="#8E6EEA" />
           <Text className="text-base font-medium text-text-foreground">
-            {doctor.medic.activeSince} years active
+            active since{" "}
+            {doctor.medic.activeSince.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
           </Text>
         </View>
 

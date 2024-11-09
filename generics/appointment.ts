@@ -6,7 +6,7 @@ const GenericAppointments: IAppointment[] = [
     title: "General Checkup",
     pacientId: "1",
     doctorId: "6",
-    dateTime: new Date("2023-11-01T09:00:00Z"),
+    dateTime: new Date("2024-11-09T09:00:00Z"),
     location: "City Hospital, Room 101",
     geolocation: {
       first: 40.712776,

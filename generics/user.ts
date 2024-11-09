@@ -12,8 +12,8 @@ const GenericUsers: IUser[] = [
     medic: null,
     gpg: "gpg_key_1",
     doctorsId: [],
-    createdAt: "2023-01-01T00:00:00Z",
-    updatedAt: "2023-01-01T00:00:00Z",
+    createdAt: new Date("2023-01-01T00:00:00Z"),
+    updatedAt: new Date("2023-01-01T00:00:00Z"),
   },
   {
     id: "2",
@@ -26,8 +26,8 @@ const GenericUsers: IUser[] = [
     medic: null,
     gpg: "gpg_key_2",
     doctorsId: [],
-    createdAt: "2023-01-02T00:00:00Z",
-    updatedAt: "2023-01-02T00:00:00Z",
+    createdAt: new Date("2023-01-02T00:00:00Z"),
+    updatedAt: new Date("2023-01-02T00:00:00Z"),
   },
   {
     id: "3",
@@ -40,8 +40,8 @@ const GenericUsers: IUser[] = [
     medic: null,
     gpg: "gpg_key_3",
     doctorsId: [],
-    createdAt: "2023-01-03T00:00:00Z",
-    updatedAt: "2023-01-03T00:00:00Z",
+    createdAt: new Date("2023-01-03T00:00:00Z"),
+    updatedAt: new Date("2023-01-03T00:00:00Z"),
   },
   {
     id: "4",
@@ -54,8 +54,8 @@ const GenericUsers: IUser[] = [
     medic: null,
     gpg: "gpg_key_4",
     doctorsId: [],
-    createdAt: "2023-01-04T00:00:00Z",
-    updatedAt: "2023-01-04T00:00:00Z",
+    createdAt: new Date("2023-01-04T00:00:00Z"),
+    updatedAt: new Date("2023-01-04T00:00:00Z"),
   },
   {
     id: "5",
@@ -68,8 +68,8 @@ const GenericUsers: IUser[] = [
     medic: null,
     gpg: "gpg_key_5",
     doctorsId: [],
-    createdAt: "2023-01-05T00:00:00Z",
-    updatedAt: "2023-01-05T00:00:00Z",
+    createdAt: new Date("2023-01-05T00:00:00Z"),
+    updatedAt: new Date("2023-01-05T00:00:00Z"),
   },
   {
     id: "6",
@@ -82,7 +82,7 @@ const GenericUsers: IUser[] = [
     medic: {
       id: "6",
       medicalId: "MD123456",
-      activeSince: "2010-01-01",
+      activeSince: new Date("2010-01-01"),
       specialty: "Cardiology",
       grade: "specialist",
       workplace: "City Hospital",
@@ -97,8 +97,8 @@ const GenericUsers: IUser[] = [
     },
     gpg: "gpg_key_6",
     doctorsId: [],
-    createdAt: "2023-01-06T00:00:00Z",
-    updatedAt: "2023-01-06T00:00:00Z",
+    createdAt: new Date("2023-01-06T00:00:00Z"),
+    updatedAt: new Date("2023-01-06T00:00:00Z"),
   },
   {
     id: "7",
@@ -111,7 +111,7 @@ const GenericUsers: IUser[] = [
     medic: {
       id: "7",
       medicalId: "MD654321",
-      activeSince: "2012-01-01",
+      activeSince: new Date("2012-01-01"),
       specialty: "Neurology",
       grade: "specialist",
       workplace: "Neuro Clinic",
@@ -126,8 +126,8 @@ const GenericUsers: IUser[] = [
     },
     gpg: "gpg_key_7",
     doctorsId: [],
-    createdAt: "2023-01-07T00:00:00Z",
-    updatedAt: "2023-01-07T00:00:00Z",
+    createdAt: new Date("2023-01-07T00:00:00Z"),
+    updatedAt: new Date("2023-01-07T00:00:00Z"),
   },
   {
     id: "8",
@@ -140,7 +140,7 @@ const GenericUsers: IUser[] = [
     medic: {
       id: "8",
       medicalId: "MD789012",
-      activeSince: "2015-01-01",
+      activeSince: new Date("2015-01-01"),
       specialty: "Pediatrics",
       grade: "primary",
       workplace: "Children's Hospital",
@@ -155,8 +155,8 @@ const GenericUsers: IUser[] = [
     },
     gpg: "gpg_key_8",
     doctorsId: [],
-    createdAt: "2023-01-08T00:00:00Z",
-    updatedAt: "2023-01-08T00:00:00Z",
+    createdAt: new Date("2023-01-08T00:00:00Z"),
+    updatedAt: new Date("2023-01-08T00:00:00Z"),
   },
   {
     id: "9",
@@ -169,7 +169,7 @@ const GenericUsers: IUser[] = [
     medic: {
       id: "9",
       medicalId: "MD345678",
-      activeSince: "2008-01-01",
+      activeSince: new Date("2008-01-01"),
       specialty: "Orthopedics",
       grade: "specialist",
       workplace: "Ortho Center",
@@ -184,8 +184,8 @@ const GenericUsers: IUser[] = [
     },
     gpg: "gpg_key_9",
     doctorsId: [],
-    createdAt: "2023-01-09T00:00:00Z",
-    updatedAt: "2023-01-09T00:00:00Z",
+    createdAt: new Date("2023-01-09T00:00:00Z"),
+    updatedAt: new Date("2023-01-09T00:00:00Z"),
   },
   {
     id: "10",
@@ -198,7 +198,7 @@ const GenericUsers: IUser[] = [
     medic: {
       id: "10",
       medicalId: "MD901234",
-      activeSince: "2011-01-01",
+      activeSince: new Date("2011-01-01"),
       specialty: "Dermatology",
       grade: "primary",
       workplace: "Skin Care Clinic",
@@ -213,8 +213,8 @@ const GenericUsers: IUser[] = [
     },
     gpg: "gpg_key_10",
     doctorsId: [],
-    createdAt: "2023-01-10T00:00:00Z",
-    updatedAt: "2023-01-10T00:00:00Z",
+    createdAt: new Date("2023-01-10T00:00:00Z"),
+    updatedAt: new Date("2023-01-10T00:00:00Z"),
   },
 ];
 

@@ -16,15 +16,15 @@ export interface IUser {
   gpg: string;
   doctorsId: string[];
 
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface IMedic {
   id: string;
 
   medicalId: string; //License number
-  activeSince: string;
+  activeSince: Date;
 
   specialty: string;
   grade: MEDIC_GRADE;

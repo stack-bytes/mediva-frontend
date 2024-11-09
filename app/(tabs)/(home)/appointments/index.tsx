@@ -78,7 +78,7 @@ export default function AppointmentsScreen() {
                   (appointment) => !isToday(new Date(appointment.dateTime))
                 ),
               },
-            ]}
+            ].filter((section) => section.data.length > 0)}
             renderSectionHeader={({ section: { title } }) => (
               <Text className="bg-card text-lg font-semibold">{title}</Text>
             )}
