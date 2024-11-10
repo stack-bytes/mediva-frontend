@@ -9,7 +9,7 @@ import { Platform } from "react-native";
 import { NAV_THEME } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { useFonts } from "expo-font";
-
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { verifyInstallation } from "nativewind";
 
 const LIGHT_THEME: Theme = {
@@ -73,12 +73,14 @@ export default function RootLayout() {
   //verifyInstallation();
 
   return (
-    <ThemeProvider value={DARK_THEME}>
-      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-      <Stack initialRouteName="(tabs)">
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider value={DARK_THEME}>
+        <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+        <Stack initialRouteName="(tabs)">
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
