@@ -13,6 +13,7 @@ import { IIllness } from "@/types/illness";
 import { GenericIllnesses } from "@/generics/illness";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/section-header";
+import { Badge } from "@/components/ui/badge";
 
 export default function PrescriptionScreen() {
   const { illnessId } = useLocalSearchParams<{ illnessId: string }>();
@@ -58,7 +59,25 @@ export default function PrescriptionScreen() {
 
           <View className="w-full gap-y-4 px-8">
             <SectionHeader title="Prescription" />
-            <View className="h-32 w-full flex-row items-center justify-start gap-x-4 bg-red-500"></View>
+            <Card className="h-32 w-full">
+              <Image
+                source="https://www.researchgate.net/publication/345830022/figure/fig4/AS:957640029003789@1605330583881/Sample-prescription-used-as-input-to-the-GUI-developed-in-the-present-work.png"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  flex: 1,
+                  position: "absolute",
+                }}
+              />
+              <Badge
+                className="flex h-12 flex-row gap-x-2 bg-card"
+                variant="outline"
+              >
+                <Text className="tex-2xl text-text-primary">
+                  Digitally signed by Dr. Mike Richard (View)
+                </Text>
+              </Badge>
+            </Card>
           </View>
 
           <View className="w-full gap-y-4 px-8">
