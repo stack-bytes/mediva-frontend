@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import BottomSheet, {
+import {
   BottomSheetModal,
   BottomSheetModalProvider,
   BottomSheetView,
@@ -18,6 +18,8 @@ import {
 import { Colors } from "@/constants/Colors";
 import { Image } from "expo-image";
 import { Button } from "@/components/ui/button";
+import { IUtil } from "@/types/util";
+import { getUtils } from "@/actions/util";
 
 const INITIAL_REGION = {
   latitude: 45.75719888144093,
@@ -26,24 +28,10 @@ const INITIAL_REGION = {
   longitudeDelta: 0.0421,
 };
 
-const markers = [
-  {
-    id: "1",
-    title: "Defribillator",
-    description: "Nicoale Balcescu 1",
-    coordinate: { latitude: 45.75719888144093, longitude: 21.228961458729717 },
-  },
-  {
-    id: "2",
-    title: "Marker 2",
-    description: "Description 2",
-    coordinate: { latitude: 37.78825, longitude: -122.4324 },
-  },
-  // Add more markers as needed
-];
-
 export default function IndexScreen() {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [utils, setUtils] = useState<IUtil[]>([]);
+  const [selectedMarker, setSelectedMarker] = useState<IUtil | null>(null);
 
   // callbacks
   const handlePresentModalPress = React.useCallback(() => {
@@ -53,14 +41,23 @@ export default function IndexScreen() {
     console.log("handleSheetChanges", index);
   }, []);
 
-  const [selectedMarker, setSelectedMarker] = useState(null);
-
   const handleMarkerPress = (marker) => {
     setSelectedMarker(marker);
     handlePresentModalPress();
   };
 
   const snapPoints = React.useMemo(() => ["25%", "52%", "70%"], []);
+
+  React.useEffect(() => {
+    getUtils().then((data) => {
+      console.log("MAP_UTILS: ", data);
+      setUtils(data);
+    });
+  }, [utils]);
+
+  if (utils.length === 0) {
+    return <Text>Loading...</Text>;
+  }
 
   return (
     <View className="h-full w-full bg-red-500">
@@ -75,16 +72,20 @@ export default function IndexScreen() {
 
       <MapView
         initialRegion={INITIAL_REGION}
+        mapType="hybridFlyover"
         showsUserLocation
         style={{ flex: 1 }}
       >
-        {markers.map((marker) => (
+        {utils.map((util) => (
           <Marker
-            key={marker.id}
-            coordinate={marker.coordinate}
-            title={marker.title}
-            description={marker.description}
-            onPress={() => handleMarkerPress(marker)}
+            key={util.id}
+            coordinate={{
+              latitude: util.coordinates.first,
+              longitude: util.coordinates.second,
+            }}
+            title={util.type}
+            description={util.locationName}
+            onPress={() => handleMarkerPress(util)}
           >
             <View className="flex h-8 w-8 items-center justify-center rounded-full bg-primary p-6">
               <HeartPulse color="white" size={24} />
@@ -114,7 +115,9 @@ export default function IndexScreen() {
             <View className="w-full">
               <View className="flex w-full flex-row items-center justify-start gap-x-2">
                 <Text className="text-3xl font-semibold text-text-primary">
-                  Heart defribillator
+                  {selectedMarker?.type === "oxygen" && "Oxygen"}
+                  {selectedMarker?.type === "defribilator" &&
+                    "Heart defribilator"}
                 </Text>
                 <BadgeCheck
                   fill={Colors.dark.primary}
@@ -124,13 +127,13 @@ export default function IndexScreen() {
               </View>
               <View className="flex w-full flex-row items-center justify-start gap-x-2">
                 <Text className="text-xl font-medium text-text-foreground">
-                  near Strada Porumbacului nr. 56-60
+                  near {selectedMarker?.locationName}
                 </Text>
               </View>
             </View>
 
             <Image
-              source={require("@/assets/images/map.png")}
+              source={selectedMarker?.locationPhoto}
               style={{
                 width: "100%",
                 height: 150,
