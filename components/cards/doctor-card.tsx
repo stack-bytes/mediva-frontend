@@ -24,7 +24,7 @@ export const DoctorCard: React.FC<IDoctorCardProps> = ({ doctor }) => {
   return (
     <Card className="h-fit w-full flex-col gap-y-4">
       <View className="flex w-full flex-row items-center justify-start gap-x-2">
-        <Pressable onPress={() => router.push(`/profile/${doctor.username}`)}>
+        <Pressable onPress={() => router.push(`/profile/${doctor.id}`)}>
           <Avatar alt="Avatar" className="h-16 w-16 border-2 border-border">
             <AvatarImage source={{ uri: doctor.avatar }} />
             <AvatarFallback>
@@ -77,7 +77,7 @@ export const DoctorCard: React.FC<IDoctorCardProps> = ({ doctor }) => {
       <Button
         className="absolute bottom-3 right-3 aspect-square"
         variant="default"
-        onPress={() => router.push(`/profile/${doctor.username}`)}
+        onPress={() => router.push(`/profile/${doctor.id}`)}
       >
         <Eye size={24} color="#fff" />
       </Button>

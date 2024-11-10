@@ -49,9 +49,7 @@ export const AppointmentCard: React.FC<IAppointmentCardProps> = ({
   return (
     <Card key={id} className={cn("h-fit w-full flex-col gap-y-4", className)}>
       <View className="flex h-fit w-full flex-row items-center justify-start gap-x-2">
-        <Pressable
-          onPress={() => router.push(`/profile/${foundDoctor.username}`)}
-        >
+        <Pressable onPress={() => router.push(`/profile/${foundDoctor.id}`)}>
           <Avatar alt="Avatar" className="h-16 w-16 border-2 border-border">
             <AvatarImage source={{ uri: foundDoctor.avatar }} />
             <AvatarFallback>

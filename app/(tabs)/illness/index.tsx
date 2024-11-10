@@ -12,27 +12,41 @@ import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 
 import { useRouter } from "expo-router";
-import { IIllness, ISymptomReport } from "@/types/illness";
-import { GenericIllnesses, GenericSymptomReports } from "@/generics/illness";
+import { IIllness, ISymptom } from "@/types/illness";
+import { GenericIllnesses, GenericSymptoms } from "@/generics/illness";
 import { SymptomCard } from "@/components/cards/symptom-card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IllnessCard } from "@/components/cards/illness-card";
+import { useSessionStore } from "@/hooks/useSession";
+import { getUserSymptoms } from "@/actions/symptoms";
 
 export default function IllnessesScreen() {
   const router = useRouter();
 
+  const { user } = useSessionStore((state) => state);
+
   const [value, setValue] = useState<"reports" | "illnesses">("reports");
 
   const [illnesses, setIllnesses] = React.useState<null | IIllness[]>([]);
-  const [symptomReports, setSymptomReports] = React.useState<
-    null | ISymptomReport[]
-  >(null);
+  const [symptomReports, setSymptomReports] = React.useState<null | ISymptom[]>(
+    null
+  );
 
   React.useEffect(() => {
     // Fetch the user's illnesses
 
     setIllnesses(GenericIllnesses);
-    setSymptomReports(GenericSymptomReports.slice(0, 5));
+
+    const getSymptoms = async () => {
+      // Fetch the user's symptom reports
+
+      //const symptoms = (await getUserSymptoms(user.id)).slice(0, 2);
+
+      setSymptomReports(GenericSymptoms);
+
+      //console.log("FRONT_END: Symptoms fetched", symptoms);
+    };
+    getSymptoms();
   }, []);
 
   if (!illnesses || !symptomReports) {

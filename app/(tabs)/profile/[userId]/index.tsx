@@ -30,18 +30,18 @@ import { IUser } from "@/types/user";
 import { GenericUsers } from "@/generics/user";
 import { SectionHeader } from "@/components/section-header";
 import { GenericAppointments } from "@/generics/appointment";
-
-const OWN_USER = true;
+import { useSessionStore } from "@/hooks/useSession";
 
 export default function ProfileScreen() {
   const { userId } = useLocalSearchParams<{ userId: string }>();
+
+  const { user: ownUser } = useSessionStore((state) => state);
 
   const [user, setUser] = React.useState<null | IUser>(null);
 
   React.useEffect(() => {
     // Fetch the user's information
-    if (OWN_USER) setUser(GenericUsers[0]);
-    else setUser(GenericUsers[7]);
+    setUser(GenericUsers.find((item) => item.id === userId) || null);
   }, [userId]);
 
   if (!user) {
@@ -196,7 +196,7 @@ export default function ProfileScreen() {
               </>
             )}
 
-            {OWN_USER && (
+            {userId === ownUser.id && (
               <>
                 <SectionHeader title="Appointments" />
 

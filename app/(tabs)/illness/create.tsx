@@ -13,21 +13,22 @@ import { Colors } from "@/constants/Colors";
 import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { GenericSymptomReports } from "@/generics/illness";
-import { ISymptomReport } from "@/types/illness";
 import { Header } from "@/components/header";
 import { SymptomCard } from "@/components/cards/symptom-card";
 import { SectionHeader } from "@/components/section-header";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
+import { ISymptom } from "@/types/illness";
+import { GenericSymptoms } from "@/generics/illness";
 
 export default function CreateIllnessScreen() {
-  const { reportId } = useLocalSearchParams<{ reportId: string }>();
+  const { symtompId } = useLocalSearchParams<{ symtompId: string }>();
   const router = useRouter();
 
-  const [symptomReport, setSymptomReport] =
-    React.useState<null | ISymptomReport>(null);
+  const [symptomReport, setSymptomReport] = React.useState<null | ISymptom>(
+    null
+  );
 
   const [medication, setMedication] = React.useState<
     { name: string; dosage: string }[]
@@ -64,8 +65,8 @@ export default function CreateIllnessScreen() {
   React.useEffect(() => {
     // Fetch the illness by ID
     setSymptomReport(
-      GenericSymptomReports.find((item) => item.id === reportId) ||
-        GenericSymptomReports[0]
+      GenericSymptoms.find((item) => item.id === symtompId) ||
+        GenericSymptoms[0]
     );
   }, []);
 
@@ -90,7 +91,7 @@ export default function CreateIllnessScreen() {
         />
 
         <View className="w-full items-center gap-y-4 px-8">
-          <SymptomCard id={GenericSymptomReports[0].id} viewOnly={true} />
+          <SymptomCard id={symtompId} viewOnly={true} />
 
           <View className="w-full flex-col gap-y-2">
             <SectionHeader title="Name" />

@@ -10,14 +10,5 @@ const INITIAL_REGION = {
 };
 
 export default function MapScreen() {
-  return (
-    <View className="h-full w-full bg-red-500">
-      <MapView
-        initialRegion={INITIAL_REGION}
-        showsUserLocation
-        showsMyLocationButton
-        style={{ width: "100%", height: "100%" }}
-      ></MapView>
-    </View>
-  );
+  return <View className="h-full w-full bg-red-500"></View>;
 }

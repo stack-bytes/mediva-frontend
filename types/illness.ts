@@ -17,18 +17,16 @@ export interface IIllness {
 }
 
 export interface ISymptom {
-  name: string;
-  severity: number;
-}
-export interface ISymptomReport {
   id: string;
-  description: string;
 
-  symptoms: ISymptom[];
+  name: string;
+  description: string;
+  severity: number;
+
   emergency: boolean;
 
   date: Date;
 
-  pacientId: IUser["id"];
+  userId: IUser["id"];
   doctorId: IUser["id"][];
 }

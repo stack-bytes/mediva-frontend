@@ -131,7 +131,7 @@ export default function AppointmentScreen() {
               <Button
                 className="absolute right-3 top-3 aspect-square"
                 variant="default"
-                onPress={() => router.push(`/profile/${doctor.username}`)}
+                onPress={() => router.push(`/profile/${doctor.id}`)}
               >
                 <EllipsisIcon size={24} color="#fff" />
               </Button>

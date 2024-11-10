@@ -7,8 +7,8 @@ import { TriangleAlert, CalendarClock, PlusCircle } from "lucide-react-native";
 import { Colors } from "@/constants/Colors";
 import { useRouter } from "expo-router";
 import { IUser } from "@/types/user";
-import { ISymptomReport } from "@/types/illness";
-import { GenericSymptomReports } from "@/generics/illness";
+import { ISymptom } from "@/types/illness";
+import { GenericSymptoms } from "@/generics/illness";
 import { GenericUsers } from "@/generics/user";
 
 interface ISymptomCardProps {
@@ -23,24 +23,21 @@ export const SymptomCard: React.FC<ISymptomCardProps> = ({
   const router = useRouter();
 
   const [pacient, setPacient] = React.useState<IUser | null>(null);
-  const [symptomReport, setSymptomReport] =
-    React.useState<ISymptomReport | null>(null);
+  const [symptom, setsymptom] = React.useState<ISymptom | null>(null);
 
   React.useEffect(() => {
     // Fetch the user's illnesses
 
-    const foundSymptomReport = GenericSymptomReports.find(
-      (item) => item.id === id
-    );
+    const foundsymptom = GenericSymptoms.find((item) => item.id === id);
 
-    if (!foundSymptomReport) return;
+    if (!foundsymptom) return;
 
-    setSymptomReport(foundSymptomReport);
+    setsymptom(foundsymptom);
 
     setPacient(GenericUsers[0]);
   }, []);
 
-  if (!symptomReport || !pacient) {
+  if (!symptom || !pacient) {
     return <Text>Loading...</Text>;
   }
 
@@ -66,21 +63,21 @@ export const SymptomCard: React.FC<ISymptomCardProps> = ({
 
       <View className="flex w-full flex-row items-center justify-start gap-x-2">
         <Text className="text-lg font-medium italic text-text-foreground">
-          {symptomReport.description}
+          {symptom.description}
         </Text>
       </View>
 
       <View className="flex w-full flex-row items-center justify-start gap-x-2">
         <TriangleAlert size={20} color={Colors.dark.secondary} />
         <Text className="text-lg font-semibold text-secondary">
-          {symptomReport.symptoms}
+          {symptom.name}
         </Text>
       </View>
 
       <View className="flex w-full flex-row items-center justify-start gap-x-2">
         <CalendarClock size={20} color={Colors.dark.text_secondary} />
         <Text className="text-lg font-medium text-text-primary">
-          {symptomReport.date.toLocaleDateString("en-US", {
+          {symptom.date.toLocaleDateString("en-US", {
             hour: "2-digit",
             month: "numeric",
             day: "numeric",
@@ -93,7 +90,10 @@ export const SymptomCard: React.FC<ISymptomCardProps> = ({
         <>
           <Button
             className="absolute bottom-4 right-4 aspect-square h-10"
-            onPress={() => router.push(`/illness/create`)}
+            onPress={() => {
+              router.push("/illness/middleware");
+              router.setParams({ symptomId: id });
+            }}
           >
             <PlusCircle color={Colors.dark.text_white} />
           </Button>

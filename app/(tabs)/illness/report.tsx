@@ -13,7 +13,7 @@ import { Colors } from "@/constants/Colors";
 import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useRouter } from "expo-router";
-import { ISymptom, ISymptomReport } from "@/types/illness";
+import { ISymptom } from "@/types/illness";
 import { Header } from "@/components/header";
 import { SectionHeader } from "@/components/section-header";
 import { Input } from "@/components/ui/input";
@@ -22,22 +22,23 @@ import { Card } from "@/components/ui/card";
 import Slider from "@react-native-community/slider";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { useSessionStore } from "@/hooks/useSession";
+import { createSymptoms } from "@/actions/symptoms";
+
+type ISymptomWithoutId = Omit<ISymptom, "id">;
 
 export default function ReportScreen() {
   const router = useRouter();
 
-  const [symptomReport, setSymptomReport] = React.useState<ISymptomReport>({
-    id: "53",
-    description: "",
-    symptoms: [],
-    emergency: false,
-    date: new Date(),
-    pacientId: "",
-    doctorId: [],
-  });
+  const { user } = useSessionStore((state) => state);
+
+  const [symptoms, setSymptoms] = React.useState<ISymptomWithoutId[]>([]);
 
   const [symptomName, setSymptomName] = React.useState<ISymptom["name"]>("");
+  const [symptomDescription, setSymptomDescription] =
+    React.useState<ISymptom["description"]>("");
   const [sliderValue, setSliderValue] = React.useState<ISymptom["severity"]>(0);
+  const [isEmergency, setIsEmergency] = React.useState<boolean>(false);
 
   const addSymptom = async () => {
     if (symptomName.trim() === "") {
@@ -45,30 +46,32 @@ export default function ReportScreen() {
     }
 
     //Add the symptom to the list
-    setSymptomReport({
-      ...symptomReport,
-      symptoms: [
-        ...symptomReport.symptoms,
-        {
-          name: symptomName,
-          severity: sliderValue,
-        },
-      ],
-    });
+    setSymptoms([
+      ...symptoms,
+      {
+        name: symptomName,
+        description: symptomDescription,
+        severity: parseInt(`${sliderValue}`),
+        emergency: isEmergency,
+        date: new Date(),
+        userId: user.id,
+        doctorId: [user.doctorsId[0]],
+      },
+    ]);
 
     //Reset the input fields
     setSymptomName("");
+    setSymptomDescription("");
     setSliderValue(0);
   };
 
   const removeSymptom = async (itemName: string) => {
-    setSymptomReport({
-      ...symptomReport,
-      symptoms: symptomReport.symptoms.filter((item) => item.name !== itemName),
-    });
+    setSymptoms(symptoms.filter((item) => item.name !== itemName));
   };
 
   const createIllness = async () => {
+    //Send the symptoms to the server
+    createSymptoms(symptoms);
     router.push("/illness");
   };
 
@@ -96,12 +99,9 @@ export default function ReportScreen() {
           <View className="w-full flex-col gap-y-2">
             <SectionHeader title="Emergency" />
             <Switch
-              checked={symptomReport.emergency}
+              checked={isEmergency}
               onCheckedChange={() =>
-                setSymptomReport({
-                  ...symptomReport,
-                  emergency: !symptomReport.emergency,
-                })
+                setIsEmergency((isEmergency) => !isEmergency)
               }
             />
           </View>
@@ -109,10 +109,8 @@ export default function ReportScreen() {
           <View className="w-full flex-col gap-y-2">
             <SectionHeader title="Description" />
             <Textarea
-              value={symptomReport.description}
-              onChangeText={(text) =>
-                setSymptomReport({ ...symptomReport, description: text })
-              }
+              value={symptomDescription}
+              onChangeText={setSymptomDescription}
             />
           </View>
 
@@ -132,10 +130,12 @@ export default function ReportScreen() {
 
               <Slider
                 style={{ width: "100%", height: 40 }}
-                minimumValue={0}
-                maximumValue={1}
+                minimumValue={1}
+                maximumValue={10}
                 minimumTrackTintColor={Colors.dark.primary}
                 maximumTrackTintColor={Colors.dark.text_primary}
+                value={sliderValue}
+                onValueChange={(value) => setSliderValue(value)}
               />
             </View>
 
@@ -144,7 +144,7 @@ export default function ReportScreen() {
               <Text>Add symptom</Text>
             </Button>
 
-            {symptomReport.symptoms.length > 0 && (
+            {symptoms.length > 0 && (
               <>
                 <Separator className="w-1/2" />
                 <SectionHeader title="Symptoms" />
@@ -152,7 +152,7 @@ export default function ReportScreen() {
             )}
             <FlatList
               scrollEnabled={false}
-              data={symptomReport.symptoms}
+              data={symptoms}
               style={{ width: "100%" }}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
@@ -173,10 +173,10 @@ export default function ReportScreen() {
             />
           </View>
 
-          {symptomReport.symptoms.length > 0 && (
+          {symptoms.length > 0 && (
             <Button className="w-full" onPress={createIllness}>
               <BriefcaseMedical size={24} color={Colors.dark.text_white} />
-              <Text>Send report</Text>
+              <Text>Send</Text>
             </Button>
           )}
         </View>

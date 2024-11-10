@@ -39,7 +39,7 @@ export const Header: React.FC<IHeaderProps> = ({
         </View>
 
         {router.canGoBack() && (
-          <Pressable onPress={() => router.canGoBack() && router.back()}>
+          <Pressable onPress={() => router.canGoBack() && router.dismiss()}>
             <X size={24} color={Colors.dark.text_secondary} />
           </Pressable>
         )}

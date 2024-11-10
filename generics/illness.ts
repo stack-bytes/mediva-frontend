@@ -1,4 +1,4 @@
-import { IIllness, ISymptomReport } from "@/types/illness";
+import { IIllness, ISymptom } from "@/types/illness";
 
 const GenericIllnesses: IIllness[] = [
   {
@@ -119,12 +119,11 @@ const GenericIllnesses: IIllness[] = [
   },
 ];
 
-const GenericSymptomReports: ISymptomReport[] = [
+const GenericSymptoms: ISymptom[] = [
   {
     id: "1",
-    symptoms: "Cough, Sore Throat",
-    description:
-      "Patient has been experiencing a persistent cough and sore throat for the past week.",
+    name: "Cough",
+    description: "Persistent cough for the past week.",
     severity: 3,
     emergency: false,
     date: new Date("2023-11-01T09:00:00Z"),
@@ -133,9 +132,8 @@ const GenericSymptomReports: ISymptomReport[] = [
   },
   {
     id: "2",
-    symptoms: "Fever, Body Aches",
-    description:
-      "Patient reports high fever and body aches for the last three days.",
+    name: "Fever",
+    description: "High fever for the last three days.",
     severity: 4,
     emergency: false,
     date: new Date("2023-11-02T10:30:00Z"),
@@ -144,9 +142,8 @@ const GenericSymptomReports: ISymptomReport[] = [
   },
   {
     id: "3",
-    symptoms: "High Blood Sugar",
-    description:
-      "Patient's blood sugar levels have been consistently high despite medication.",
+    name: "High Blood Sugar",
+    description: "Consistently high blood sugar levels despite medication.",
     severity: 5,
     emergency: true,
     date: new Date("2023-11-03T11:00:00Z"),
@@ -155,9 +152,8 @@ const GenericSymptomReports: ISymptomReport[] = [
   },
   {
     id: "4",
-    symptoms: "Headache, Dizziness",
-    description:
-      "Patient experiences frequent headaches and dizziness, especially in the morning.",
+    name: "Headache",
+    description: "Frequent headaches, especially in the morning.",
     severity: 2,
     emergency: false,
     date: new Date("2023-11-04T09:30:00Z"),
@@ -166,9 +162,8 @@ const GenericSymptomReports: ISymptomReport[] = [
   },
   {
     id: "5",
-    symptoms: "Shortness of Breath, Wheezing",
-    description:
-      "Patient has difficulty breathing and wheezing, especially during physical activity.",
+    name: "Shortness of Breath",
+    description: "Difficulty breathing, especially during physical activity.",
     severity: 4,
     emergency: true,
     date: new Date("2023-11-05T14:00:00Z"),
@@ -177,9 +172,9 @@ const GenericSymptomReports: ISymptomReport[] = [
   },
   {
     id: "6",
-    symptoms: "Severe Headache, Nausea",
+    name: "Severe Headache",
     description:
-      "Patient reports severe headaches accompanied by nausea and sensitivity to light.",
+      "Severe headaches accompanied by nausea and sensitivity to light.",
     severity: 5,
     emergency: true,
     date: new Date("2023-11-06T15:30:00Z"),
@@ -188,9 +183,8 @@ const GenericSymptomReports: ISymptomReport[] = [
   },
   {
     id: "7",
-    symptoms: "Sneezing, Runny Nose",
-    description:
-      "Patient has been sneezing frequently and has a runny nose, likely due to allergies.",
+    name: "Sneezing",
+    description: "Frequent sneezing and runny nose, likely due to allergies.",
     severity: 2,
     emergency: false,
     date: new Date("2023-11-07T09:00:00Z"),
@@ -199,9 +193,8 @@ const GenericSymptomReports: ISymptomReport[] = [
   },
   {
     id: "8",
-    symptoms: "Itchy Skin, Redness",
-    description:
-      "Patient's skin is itchy and red, possibly due to eczema flare-up.",
+    name: "Itchy Skin",
+    description: "Itchy and red skin, possibly due to eczema flare-up.",
     severity: 3,
     emergency: false,
     date: new Date("2023-11-08T10:30:00Z"),
@@ -210,9 +203,9 @@ const GenericSymptomReports: ISymptomReport[] = [
   },
   {
     id: "9",
-    symptoms: "Joint Pain, Swelling",
+    name: "Joint Pain",
     description:
-      "Patient experiences joint pain and swelling, particularly in the knees and hands.",
+      "Joint pain and swelling, particularly in the knees and hands.",
     severity: 4,
     emergency: false,
     date: new Date("2023-11-09T11:00:00Z"),
@@ -221,9 +214,9 @@ const GenericSymptomReports: ISymptomReport[] = [
   },
   {
     id: "10",
-    symptoms: "Persistent Sadness, Loss of Interest",
+    name: "Persistent Sadness",
     description:
-      "Patient reports persistent feelings of sadness and loss of interest in daily activities.",
+      "Persistent feelings of sadness and loss of interest in daily activities.",
     severity: 4,
     emergency: true,
     date: new Date("2023-11-10T09:30:00Z"),
@@ -232,4 +225,4 @@ const GenericSymptomReports: ISymptomReport[] = [
   },
 ];
 
-export { GenericIllnesses, GenericSymptomReports };
+export { GenericIllnesses, GenericSymptoms };
