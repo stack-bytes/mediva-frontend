@@ -91,7 +91,7 @@ export default function CreateIllnessScreen() {
         />
 
         <View className="w-full items-center gap-y-4 px-8">
-          <SymptomCard id={symtompId} viewOnly={true} />
+          <SymptomCard id={symptomReport.id} viewOnly={true} />
 
           <View className="w-full flex-col gap-y-2">
             <SectionHeader title="Name" />
