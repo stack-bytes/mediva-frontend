@@ -18,6 +18,7 @@ import {
   Cog,
   InfoIcon,
   MessageCircleWarning,
+  SquareActivity,
   Stethoscope,
 } from "lucide-react-native";
 import { Colors } from "@/constants/Colors";
@@ -29,6 +30,8 @@ import { useRouter } from "expo-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { GenericAppointments } from "@/generics/appointment";
 import { SectionHeader } from "@/components/section-header";
+import { Card } from "@/components/ui/card";
+import Slider from "@react-native-community/slider";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -79,18 +82,8 @@ export default function HomeScreen() {
             </Text>
           </View>
 
-          <View className="gap-y-4 px-8">
-            <Button
-              className="w-full gap-x-2"
-              onPress={() => router.push("/illness/report")}
-            >
-              <MessageCircleWarning color={Colors.dark.text_white} size={20} />
-              <Text>Report symtomps</Text>
-            </Button>
-          </View>
-
-          <View className="flex w-full flex-1 flex-row justify-center gap-x-4 px-8">
-            <View className="flex flex-1 flex-col items-center justify-start gap-y-4">
+          <View className="flex-1 flex-row justify-center gap-x-2 px-4">
+            <View className="flex-1 flex-col items-center justify-start gap-y-4">
               <View className="flex aspect-square h-36 items-center justify-center gap-y-2 rounded-2xl border-2 border-border bg-card p-2">
                 <Text className="w-full text-center font-medium text-[##9F9F9F]">
                   Monthly Screening
@@ -133,38 +126,74 @@ export default function HomeScreen() {
                 </View>
               </View>
             </View>
-            <View className="flex h-fit flex-1 items-center justify-center gap-y-4 rounded-2xl border-2 border-border bg-card px-4 py-2">
-              <Text className="text-text-primart w-full text-center text-2xl font-semibold">
-                Chickenpox
-              </Text>
-              <Separator className="w-[50%]" />
-              <View className="flex w-full flex-row items-center justify-start gap-x-2">
-                <Stethoscope size={20} color="#9F9F9F" />
-                <Text className="text-lg font-semibold text-[#9F9F9F]">
-                  Dr. Popescu (GP)
+            <View className="flex-1 flex-col items-center justify-center gap-y-10 rounded-2xl border-2 border-border bg-card px-4 py-2">
+              <View className="w-full flex-col items-center justify-center gap-y-4">
+                <Text className="w-full text-center text-sm font-medium text-text-foreground">
+                  PRESCRIPTION FOR
                 </Text>
-              </View>
-              <View className="flex w-full flex-row items-center justify-start gap-x-2">
-                <CalendarClock size={20} color="#9F9F9F" />
-                <Text className="text-lg font-semibold text-[#9F9F9F]">
-                  03.12.2021
+                <Text className="w-full text-center text-2xl font-semibold text-text-primary">
+                  Common Cold
                 </Text>
+
+                <View className="flex w-full flex-row items-center justify-center gap-x-2">
+                  <Badge
+                    className="flex flex-row items-center justify-center gap-x-1 py-2"
+                    variant="success"
+                  >
+                    <Check size={16} color={Colors.dark.success_primary} />
+                    <Text>Active</Text>
+                  </Badge>
+                </View>
               </View>
 
-              <View className="flex flex-row gap-x-2">
-                <Badge
-                  className="flex flex-row items-center justify-center gap-x-1 py-2"
-                  variant="success"
-                >
-                  <Check size={16} color={Colors.dark.success_primary} />
-                  <Text>Active</Text>
-                </Badge>
-              </View>
-              <Button className="flex h-32 flex-row gap-x-2">
+              <Button
+                onPress={() => router.push(`/illness/test/prescription`)}
+                className="flex h-32 flex-row gap-x-2"
+              >
                 <InfoIcon color={Colors.dark.text_white} size={20} />
                 <Text>Prescription</Text>
               </Button>
             </View>
+          </View>
+
+          <View className="gap-y-4 px-8">
+            <Button
+              className="w-full gap-x-2"
+              onPress={() => router.push("/illness/report")}
+            >
+              <MessageCircleWarning color={Colors.dark.text_white} size={20} />
+              <Text>Report symtomps</Text>
+            </Button>
+          </View>
+
+          <View className="gap-y-4 px-8">
+            <SectionHeader title="Symptoms" />
+            <Card className="justify-center gap-y-4 px-4">
+              <View className="flex w-full flex-row items-center justify-between gap-x-2">
+                <View className="flex-row gap-x-2">
+                  <SquareActivity size={20} color={Colors.dark.text_primary} />
+                  <Text className="text-xl font-semibold text-text-primary">
+                    Cough
+                  </Text>
+                </View>
+
+                <View className="flex flex-row items-center justify-start gap-x-2">
+                  <CalendarClock size={20} color={Colors.dark.text_secondary} />
+                  <Text className="text-lg font-medium text-text-primary">
+                    11:15 AM
+                  </Text>
+                </View>
+              </View>
+              <Slider
+                style={{ width: "100%", height: "100%" }}
+                minimumValue={0}
+                maximumValue={3}
+                value={1}
+                minimumTrackTintColor={Colors.dark.primary}
+                maximumTrackTintColor={Colors.dark.text_primary}
+                disabled
+              />
+            </Card>
           </View>
 
           <View className="flex w-full items-center justify-center gap-y-4 px-8">

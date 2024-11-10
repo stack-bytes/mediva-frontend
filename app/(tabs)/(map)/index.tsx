@@ -8,7 +8,9 @@ import {
 } from "@gorhom/bottom-sheet";
 import {
   BadgeCheck,
+  BriefcaseMedical,
   Clock,
+  FireExtinguisher,
   HeartPulse,
   Plus,
   TriangleAlert,
@@ -72,7 +74,6 @@ export default function IndexScreen() {
 
       <MapView
         initialRegion={INITIAL_REGION}
-        mapType="hybridFlyover"
         showsUserLocation
         style={{ flex: 1 }}
       >
@@ -88,7 +89,16 @@ export default function IndexScreen() {
             onPress={() => handleMarkerPress(util)}
           >
             <View className="flex h-8 w-8 items-center justify-center rounded-full bg-primary p-6">
-              <HeartPulse color="white" size={24} />
+              {util.type === "oxygen" && (
+                <FireExtinguisher color="white" size={24} />
+              )}
+              {util.type === "defibrillator" && (
+                <HeartPulse color="white" size={24} />
+              )}
+              {util.type === "medkit" && (
+                <BriefcaseMedical color="white" size={24} />
+              )}
+              {util.type === "group" && <Users color="white" size={24} />}
             </View>
           </Marker>
         ))}
@@ -115,9 +125,11 @@ export default function IndexScreen() {
             <View className="w-full">
               <View className="flex w-full flex-row items-center justify-start gap-x-2">
                 <Text className="text-3xl font-semibold text-text-primary">
-                  {selectedMarker?.type === "oxygen" && "Oxygen"}
-                  {selectedMarker?.type === "defribilator" &&
-                    "Heart defribilator"}
+                  {selectedMarker?.type === "oxygen" && "Oxygen station"}
+                  {selectedMarker?.type === "defibrillator" &&
+                    "Heart defibrillator"}
+                  {selectedMarker?.type === "medkit" && "Medkit"}
+                  {selectedMarker?.type === "group" && "Community group"}
                 </Text>
                 <BadgeCheck
                   fill={Colors.dark.primary}
