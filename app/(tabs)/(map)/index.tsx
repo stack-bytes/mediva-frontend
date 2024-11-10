@@ -22,6 +22,10 @@ import { Image } from "expo-image";
 import { Button } from "@/components/ui/button";
 import { IUtil } from "@/types/util";
 import { getUtils } from "@/actions/util";
+import { IGroup } from "@/types/group";
+import { getGroups } from "@/actions/group";
+import { GenericUtils } from "@/generics/util";
+import { GenericGroups } from "@/generics/group";
 
 const INITIAL_REGION = {
   latitude: 45.75719888144093,
@@ -29,11 +33,26 @@ const INITIAL_REGION = {
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421,
 };
+interface IMarker {
+  id: string;
+  name: string;
+  locationName: string;
+  locationPhoto: string;
+  type: "util" | "group";
+}
+
+const utilTitles: { [key in IUtil["type"]]: string } = {
+  oxygen: "Oxygen Supply",
+  defibrillator: "Defibrillator",
+  medkit: "Medical Kit",
+  group: "Group",
+};
 
 export default function IndexScreen() {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [utils, setUtils] = useState<IUtil[]>([]);
-  const [selectedMarker, setSelectedMarker] = useState<IUtil | null>(null);
+  const [groups, setGroups] = useState<IGroup[]>([]);
+  const [selectedMarker, setSelectedMarker] = useState<IMarker | null>(null);
 
   // callbacks
   const handlePresentModalPress = React.useCallback(() => {
@@ -43,21 +62,47 @@ export default function IndexScreen() {
     console.log("handleSheetChanges", index);
   }, []);
 
-  const handleMarkerPress = (marker) => {
-    setSelectedMarker(marker);
+  const handleMarkerPress = <T extends IUtil | IGroup>(marker: T) => {
+    if ("geolocationX" in marker) {
+      setSelectedMarker({
+        id: marker.id,
+        name: marker.name,
+        locationName: marker.location,
+        locationPhoto: marker.description,
+        type: "group",
+      });
+    } else {
+      setSelectedMarker({
+        id: marker.id,
+        name: utilTitles[marker.type as IUtil["type"]],
+        locationName: marker.locationName,
+        locationPhoto: marker.locationPhoto,
+        type: "util",
+      });
+    }
+
     handlePresentModalPress();
   };
 
   const snapPoints = React.useMemo(() => ["25%", "52%", "70%"], []);
 
   React.useEffect(() => {
+    setUtils(GenericUtils);
+
+    setGroups(GenericGroups);
+    /*
     getUtils().then((data) => {
       console.log("MAP_UTILS: ", data);
       setUtils(data);
     });
-  }, [utils]);
 
-  if (utils.length === 0) {
+    getGroups().then((data) => {
+      console.log("MAP_GROUPS: ", data);
+      setGroups(data);
+    });*/
+  }, []);
+
+  if (utils.length === 0 || groups.length === 0) {
     return <Text>Loading...</Text>;
   }
 
@@ -102,6 +147,23 @@ export default function IndexScreen() {
             </View>
           </Marker>
         ))}
+
+        {groups.map((group) => (
+          <Marker
+            key={group.id}
+            coordinate={{
+              latitude: group.geolocationX,
+              longitude: group.geolocationY,
+            }}
+            title={group.name}
+            description={group.location}
+            onPress={() => handleMarkerPress(group)}
+          >
+            <View className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary p-6">
+              <Users size={24} color="white" />
+            </View>
+          </Marker>
+        ))}
       </MapView>
 
       <BottomSheetModalProvider>
@@ -125,11 +187,7 @@ export default function IndexScreen() {
             <View className="w-full">
               <View className="flex w-full flex-row items-center justify-start gap-x-2">
                 <Text className="text-3xl font-semibold text-text-primary">
-                  {selectedMarker?.type === "oxygen" && "Oxygen station"}
-                  {selectedMarker?.type === "defibrillator" &&
-                    "Heart defibrillator"}
-                  {selectedMarker?.type === "medkit" && "Medkit"}
-                  {selectedMarker?.type === "group" && "Community group"}
+                  {selectedMarker?.name}
                 </Text>
                 <BadgeCheck
                   fill={Colors.dark.primary}

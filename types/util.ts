@@ -8,5 +8,5 @@ export interface IUtil {
     first: number;
     second: number;
   };
-  type: "medkit" | "defibrillator" | "oxygen" | "group";
+  type: "medkit" | "defibrillator" | "oxygen";
 }

@@ -1,1 +1,1 @@
-export const ENDPOINT = "http://rnqqs-81-196-133-118.a.free.pinggy.link";
+export const ENDPOINT = "http://rnnxk-92-86-176-130.a.free.pinggy.link";
